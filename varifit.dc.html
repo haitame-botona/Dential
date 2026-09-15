@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="./system/ds-icon.js"></script>
+<script src="./system/reveal.js"></script>
+<script src="./image-slot.js"></script>
+<style>
+body{margin:0;background:#F8F9FA;color:#061019;font-family:'TT Norms Pro',Inter,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#0067FF;text-decoration:none}a:hover{color:#0055DD}
+::selection{background:#CBE1E6;color:#061019}
+body:not([data-lang="fr"]):not([data-lang="ar"]) .l-fr:not(.l-en){display:none !important}
+body:not([data-lang="fr"]):not([data-lang="ar"]) .l-ar:not(.l-en){display:none !important}
+body[data-lang="fr"] .l-en:not(.l-fr){display:none !important}
+body[data-lang="fr"] .l-ar:not(.l-fr){display:none !important}
+body[data-lang="ar"] .l-en:not(.l-ar){display:none !important}
+body[data-lang="ar"] .l-fr:not(.l-ar){display:none !important}
+</style>
+</helmet>
+<dc-import name="Site Nav" active="difference" hint-size="100%,68px"></dc-import>
+
+<div data-screen-label="Hero" style="max-width:1320px;margin:0 auto;padding:110px 40px 90px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:24px">
+  <h1 style="font-weight:600;font-size:clamp(44px,5vw,68px);line-height:1.02;letter-spacing:-0.04em;margin:0;max-width:880px;text-wrap:pretty"><span class="l-en">Thickness as a design variable</span><span class="l-fr l-ar">L'épaisseur comme variable de conception</span></h1>
+  <p style="font-size:19px;line-height:1.6;color:#6B6D72;max-width:620px;margin:0"><span class="l-en">Every aligner delivers force. Only a printed one lets you decide where, and how much, tooth by tooth.</span><span class="l-fr l-ar">Chaque aligneur délivre une force. Seul un aligneur imprimé vous laisse décider où, et combien, dent par dent.</span></p>
+</div>
+
+<div data-screen-label="Thickness field" style="max-width:1320px;margin:0 auto;padding:0 40px 100px">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <div style="background:#FFFFFF;border-radius:32px;padding:52px;display:flex;flex-direction:column;gap:24px">
+      <span style="width:56px;height:56px;border-radius:999px;background:#EAF2FF;color:#0067FF;display:flex;align-items:center;justify-content:center"><ds-icon name="IconTypeRuler" size="24"></ds-icon></span>
+      <h2 style="font-weight:600;font-size:30px;letter-spacing:-0.03em;margin:0"><span class="l-en">The thickness field</span><span class="l-fr l-ar">Le champ d'épaisseur</span></h2>
+      <p style="font-size:16px;line-height:1.7;color:#3D3E42;margin:0"><span class="l-en">In a thermoformed aligner, wall thickness is whatever the vacuum left behind. In VARIFIT Print, it is a continuous field computed from the plan: stiffer where anchorage must hold, more compliant where teeth must move, capped where periodontal load matters.</span><span class="l-fr l-ar">Dans un aligneur thermoformé, l'épaisseur de paroi est ce que le vide a bien voulu laisser. Dans VARIFIT Print, c'est un champ continu calculé à partir du plan : plus rigide là où l'ancrage doit tenir, plus souple là où les dents doivent bouger, plafonné là où la charge parodontale compte.</span></p>
+      <div style="display:grid;gap:10px">
+        <div style="display:flex;gap:14px;align-items:center;background:#F5F7F9;border-radius:16px;padding:15px 20px"><ds-icon name="IconTypeAnchor" size="16" style="color:#0067FF;flex-shrink:0"></ds-icon><span style="font-size:14.5px"><span class="l-en">Anchorage segments reinforced</span><span class="l-fr l-ar">Segments d'ancrage renforcés</span></span></div>
+        <div style="display:flex;gap:14px;align-items:center;background:#F5F7F9;border-radius:16px;padding:15px 20px"><ds-icon name="IconTypeMoveRight" size="16" style="color:#0067FF;flex-shrink:0"></ds-icon><span style="font-size:14.5px"><span class="l-en">Active teeth get calibrated compliance</span><span class="l-fr l-ar">Les dents actives reçoivent une souplesse calibrée</span></span></div>
+        <div style="display:flex;gap:14px;align-items:center;background:#F5F7F9;border-radius:16px;padding:15px 20px"><ds-icon name="IconTypeHeartPulse" size="16" style="color:#0067FF;flex-shrink:0"></ds-icon><span style="font-size:14.5px"><span class="l-en">Load capped over compromised periodontium</span><span class="l-fr l-ar">Charge plafonnée sur parodonte fragilisé</span></span></div>
+      </div>
+    </div>
+    <div style="background:#061019;border-radius:32px;padding:52px;color:#FFFFFF;display:flex;flex-direction:column;gap:24px">
+      <span style="width:56px;height:56px;border-radius:999px;background:rgba(255,255,255,0.08);color:#40FFBC;display:flex;align-items:center;justify-content:center"><ds-icon name="IconTypeRadar" size="24"></ds-icon></span>
+      <h2 style="font-weight:600;font-size:30px;letter-spacing:-0.03em;margin:0"><span class="l-en">The Force Map</span><span class="l-fr l-ar">La Force Map</span></h2>
+      <p style="font-size:16px;line-height:1.7;color:#8D99A3;margin:0"><span class="l-en">Every printed case ships with a Force Map: the intended force distribution, tooth by tooth, stage by stage. You see what the appliance is engineered to do before the patient wears it.</span><span class="l-fr l-ar">Chaque cas imprimé est livré avec une Force Map : la distribution de force prévue, dent par dent, étape par étape. Vous voyez ce que l'appareil est conçu pour faire avant que le patient ne le porte.</span></p>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:16px">
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:#8D99A3"><span>13–23</span><span class="l-en">Force per tooth (stage 4)</span><span class="l-fr l-ar">Force par dent (étape 4)</span></div>
+        <div style="display:flex;align-items:flex-end;gap:5px;height:110px">
+          <div style="flex:1;height:34%;background:#22323D;border-radius:5px 5px 0 0"></div>
+          <div style="flex:1;height:48%;background:#22323D;border-radius:5px 5px 0 0"></div>
+          <div style="flex:1;height:88%;background:#40FFBC;border-radius:5px 5px 0 0"></div>
+          <div style="flex:1;height:72%;background:#40FFBC;border-radius:5px 5px 0 0"></div>
+          <div style="flex:1;height:30%;background:#22323D;border-radius:5px 5px 0 0"></div>
+          <div style="flex:1;height:26%;background:#22323D;border-radius:5px 5px 0 0"></div>
+          <div style="flex:1;height:62%;background:#40FFBC;border-radius:5px 5px 0 0"></div>
+          <div style="flex:1;height:40%;background:#22323D;border-radius:5px 5px 0 0"></div>
+        </div>
+        <div style="font-size:12.5px;color:#8D99A3;display:flex;gap:8px;align-items:center"><span style="width:10px;height:10px;border-radius:3px;background:#40FFBC"></span><span class="l-en">Prescribed active force · grey = anchorage</span><span class="l-fr l-ar">Force active prescrite · gris = ancrage</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div data-screen-label="CTA" style="padding:0 20px 20px">
+  <div style="background:#0067FF;border-radius:32px;color:#FFFFFF">
+    <div style="max-width:1240px;margin:0 auto;padding:88px 64px;display:flex;justify-content:space-between;align-items:center;gap:48px">
+      <h2 style="font-weight:600;font-size:clamp(30px,3.4vw,44px);letter-spacing:-0.03em;line-height:1.05;margin:0;max-width:560px"><span class="l-en">See a Force Map on your own case</span><span class="l-fr l-ar">Voyez une Force Map sur votre propre cas</span></h2>
+      <a href="case-review.dc.html" style="display:inline-flex;align-items:center;gap:12px;background:#FFFFFF;color:#061019;padding:18px 32px;border-radius:999px;font-size:16px;font-weight:600;flex-shrink:0" style-hover="background:#061019;color:#FFFFFF"><span class="l-en">Send us one case, free</span><span class="l-fr l-ar">Envoyez un cas, gratuit</span><ds-icon name="IconTypeArrowRight" size="16"></ds-icon></a>
+    </div>
+  </div>
+</div>
+
+<dc-import name="Site Footer" hint-size="100%,540px"></dc-import>
+
+</x-dc>
+</body>
+</html>

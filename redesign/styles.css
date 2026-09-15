@@ -1,0 +1,2046 @@
+/* ==========================================================================
+   Dential — redesign
+   Hero section, from Figma "Hero section - video" (node 9:3131, 1280x832)
+   ========================================================================== */
+
+/* --- Typeface -------------------------------------------------------------
+   TT Norms Pro ships four weights in this design. The family distinguishes
+   "Normal" (a hair lighter than Regular) from "Regular", so both are mapped.
+   OTF is used for local dev; convert to WOFF2 before shipping.
+   ------------------------------------------------------------------------- */
+@font-face {
+  font-family: 'TT Norms Pro';
+  src: url('assets/fonts/TTNormsPro-Normal.otf') format('opentype');
+  font-weight: 350; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'TT Norms Pro';
+  src: url('assets/fonts/TTNormsPro-Regular.otf') format('opentype');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'TT Norms Pro';
+  src: url('assets/fonts/TTNormsPro-Medium.otf') format('opentype');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'TT Norms Pro';
+  src: url('assets/fonts/TTNormsPro-DemiBold.otf') format('opentype');
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+
+/* --- Tokens --------------------------------------------------------------- */
+:root {
+  --blue:          #046afb;
+  --blue-600:      #2563eb;  /* Figma's blue/600 — the lede on "On every case" */
+  --page:          #f8f8f8;
+  --page-alt:      #fafafa;   /* problem statement frame background */
+  --mint:          #d1fae5;   /* chart bars */
+  --ink:           #000000;
+  --ink-muted:     #434343;
+  /* Body copy set on the photographic section: the section sub, then the
+     smoked-glass cards a step further back. */
+  --on-dark:       #e1e1e1;
+  --on-dark-muted: #d6d6d6;
+
+  --pill-nav:      rgba(6, 12, 21, 0.04);
+  --pill-nav-on:   #e2e2e2;
+  --pill-foot:     rgba(0, 0, 0, 0.06);
+  --pill-foot-on:  #ffffff;
+  --btn-ghost:     rgba(255, 255, 255, 0.08);
+
+  --font: 'TT Norms Pro', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+
+  --gutter: 32px;
+
+  /* Height of the blue marquee band at the top edge, and therefore the exact
+     distance the hero panel travels to uncover it. Pinned rather than derived
+     from the ticker's padding so the panel cannot end a fraction of a pixel
+     short and leave a seam of blue under its top edge. */
+  --band: 30px;
+  /* The panel's top corners (Figma 22:160). */
+  --panel-r: 32px;
+
+  /* Entrance easing. easeOutCubic — decelerates smoothly rather than firing
+     off the mark the way easeOutQuint does. */
+  --ease-entrance: cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+/* --- Reset ---------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; margin: 0; padding: 0; }
+img, video { display: block; max-width: 100%; }
+
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 4px; }
+
+/* ==========================================================================
+   HERO
+   ========================================================================== */
+/* Shared shell for every full-viewport scene. */
+.section {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hero {
+  /* Figma frames this at 832px, but the blur and section nav are bottom-anchored
+     and belong on the viewport edge, so the hero fills the screen instead.
+     The floor keeps the absolutely-positioned copy from colliding on short windows. */
+  min-height: 480px;
+  height: 100vh;
+  height: 100svh;
+  /* Figma's root frame behind the panel (9:3131). Visible only in the band the
+     panel uncovers and in the notches outside its rounded top corners. */
+  background: var(--blue);
+}
+
+/* --- The panel (Figma 22:160) ----------------------------------------------
+   Everything that reads as "the hero" lives on this sheet: it is the full
+   height of the viewport, rounded at the top two corners and parked one band
+   height down, so the marquee shows above it. Its bottom hangs the same
+   distance past the hero's box, where the section's `overflow: hidden` trims
+   it — which is what keeps the sheet exactly one viewport tall, so the
+   page-load reveal can start it flush with the top edge, covering the marquee,
+   without it falling short at the bottom.
+   ------------------------------------------------------------------------- */
+.hero__panel {
+  position: absolute;
+  top: var(--band);
+  left: 0; right: 0;
+  bottom: calc(var(--band) * -1);
+  /* Above the hero's own blue backdrop, below every piece of fixed chrome. */
+  z-index: 45;
+  overflow: hidden;
+  border-radius: var(--panel-r) var(--panel-r) 0 0;
+  background: var(--page);
+}
+
+/* --- Media layer (video sits behind everything from y=139 down) ------------
+   Offsets here are panel-relative, so they are Figma's absolute coordinates
+   less the panel's own offset. --------------------------------------------- */
+.hero__media {
+  position: absolute;
+  top: calc(139px - var(--band)); left: 0; right: 0; bottom: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.hero__video {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+
+/* Sits behind the video; visible only if the footage fails to load. */
+.hero__media-fallback {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Top edge matches --page so the placeholder does not seam against it. */
+  background:
+    radial-gradient(120% 90% at 22% 62%, #ffffff 0%, rgba(255,255,255,0) 60%),
+    radial-gradient(90%  80% at 78% 46%, #ffffff 0%, rgba(255,255,255,0) 55%),
+    linear-gradient(180deg, #f8f8f8 0%, #f6f6f6 22%, #f3f3f3 100%);
+}
+/* --- Progressive blur along the bottom edge -------------------------------
+   Figma bakes this as a flattened PNG, which cannot sit over live video.
+   Stacked backdrop-filter layers reproduce the same ramp dynamically.
+   ------------------------------------------------------------------------- */
+/* Fixed frosted band along the bottom edge — chrome, not per-section.
+   Figma draws it at three different heights across the frames (162 / 109 /
+   211) and hides it on the last. As one persistent element it takes a single
+   height: 109px, the only one of the three that clears the "Compare plans"
+   bar at its resting position, which that frame keeps crisp.
+   Sits below the section pill (z 50) so the pill itself stays sharp. */
+.blur {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  height: 109px;
+  z-index: 49;
+  pointer-events: none;
+}
+.blur span {
+  position: absolute;
+  inset: 0;
+}
+.blur span:nth-child(1) {
+  backdrop-filter: blur(2px);  -webkit-backdrop-filter: blur(2px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 25%);
+          mask-image: linear-gradient(to bottom, transparent 0%, #000 25%);
+}
+.blur span:nth-child(2) {
+  backdrop-filter: blur(5px);  -webkit-backdrop-filter: blur(5px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 20%, #000 45%);
+          mask-image: linear-gradient(to bottom, transparent 20%, #000 45%);
+}
+.blur span:nth-child(3) {
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 42%, #000 68%);
+          mask-image: linear-gradient(to bottom, transparent 42%, #000 68%);
+}
+.blur span:nth-child(4) {
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 64%, #000 88%);
+          mask-image: linear-gradient(to bottom, transparent 64%, #000 88%);
+}
+.blur span:nth-child(5) {
+  background: linear-gradient(to bottom, rgba(248,248,248,0) 0%, rgba(248,248,248,0.55) 100%);
+  backdrop-filter: none; -webkit-backdrop-filter: none;
+}
+
+/* ==========================================================================
+   TICKER  (Figma "Header", 1280x28 — 30 here, see --band)
+   ========================================================================== */
+.ticker {
+  --tick-gap: 66px;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 50;
+  /* Pinned to the band height rather than left to fall out of padding: the
+     page-load reveal opens a clip across exactly this distance while the hero
+     panel travels exactly this far, and the two edges have to meet. The track
+     is centred in it by the flex alignment below. */
+  height: var(--band);
+  background: var(--blue);
+  color: #fff;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+.ticker__track {
+  display: flex;
+  gap: var(--tick-gap);
+  width: max-content;
+  /* At 12px the group is ~3275px, so a cycle travels ~3341px. Duration tracks
+     the type size to hold the pace at ~45px/s — otherwise changing the text
+     size silently changes the scroll speed, since the track length moves with
+     it. */
+  animation: ticker-scroll 75s linear infinite;
+}
+.ticker__group {
+  display: flex;
+  gap: var(--tick-gap);
+  flex: none;
+}
+.ticker__group li {
+  font-size: 12px;
+  font-weight: 350;
+  line-height: 1.1;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+/* Travel = one group plus the gap that follows it: half the track, plus half a
+   gap. Derived from --tick-gap rather than hardcoded, so the narrow-screen gap
+   override below cannot desynchronise the wrap. */
+@keyframes ticker-scroll {
+  to { transform: translateX(calc(-50% - (var(--tick-gap) / 2))); }
+}
+
+/* ==========================================================================
+   NAVBAR  (Figma 9:3167 — inset 32px, top 52px, height 37)
+   ========================================================================== */
+.nav {
+  position: fixed;
+  top: 52px;
+  left: var(--gutter);
+  right: var(--gutter);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.nav__left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* --- Logo lockup (91x28: symbol + wordmark + registered dot) --------------- */
+.logo {
+  position: relative;
+  width: 91px;
+  height: 28px;
+  flex: none;
+}
+.logo__symbol {
+  position: absolute;
+  left: 0.06px;
+  top: 2.35px;
+  width: 23.32px;
+  height: 23.32px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.logo__symbol img {
+  position: absolute;
+  left: -0.9px;
+  top: 0.41px;
+  width: 25.18px;
+  height: 22.3px;
+  max-width: none;
+}
+.logo__word {
+  position: absolute;
+  left: 26.32px;
+  top: -0.1px;
+  margin: 0;
+  font-size: 22.093px;
+  font-weight: 500;
+  line-height: 28px;
+  letter-spacing: -1.3256px;
+  white-space: nowrap;
+}
+.logo__dot {
+  position: absolute;
+  left: 21.66px;
+  top: 0.39px;
+  width: 4.915px;
+  height: 4.915px;
+}
+
+/* --- Audience switch pill -------------------------------------------------- */
+.nav__switch {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px;
+  border-radius: 1000px;
+  background: var(--pill-nav);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.nav__switch a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Same treatment as the section pill at the bottom: 38px items inside 2px
+     of padding, so this pill is 42px too. */
+  height: 38px;
+  padding: 0 12px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.26px;
+  white-space: nowrap;
+  transition: background-color 160ms ease;
+}
+.nav__switch a:hover { background: rgba(0, 0, 0, 0.04); }
+.nav__switch a[aria-current='page'] {
+  background: var(--pill-nav-on);
+  font-weight: 500;
+}
+
+/* --- Right cluster: CTA + language ---------------------------------------- */
+.nav__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Hidden over the hero, revealed past it. Kept in flow at zero opacity so the
+   language button does not shift between the two states — the Figma frames
+   place it at the same x in both. */
+/* Scoped to .nav for specificity: the shared `.btn` rule lands later in this
+   file at equal specificity, and would otherwise win the transition shorthand
+   and drop `opacity` and `translate` from the animated list. */
+.nav .nav__cta {
+  opacity: 0;
+  /* `translate` rather than `transform` so the press state below can still
+     apply its own translateY without the two fighting over one property. */
+  translate: -12px 0;
+  pointer-events: none;
+  transition:
+    opacity 240ms ease,
+    translate 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 180ms ease;
+}
+body.is-scrolled .nav__cta {
+  opacity: 1;
+  translate: 0 0;
+  pointer-events: auto;
+}
+
+/* --- Language button ------------------------------------------------------- */
+.nav__lang {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* 42px square, matching the CTA's height, with the button's 18px icon:
+     12 + 18 + 12. */
+  padding: 12px;
+  border: 0;
+  border-radius: 100px;
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 160ms ease;
+}
+.nav__lang:hover { background: rgba(0, 0, 0, 0.05); }
+.nav__lang img { width: 18px; height: 18px; }
+
+/* ==========================================================================
+   MAIN COPY BLOCK  (Figma 9:3156 — 665 wide, centred, top 142.5)
+   Panel-relative, so 142.5 less the panel's own offset.
+   ========================================================================== */
+.hero__main {
+  position: absolute;
+  top: calc(142.5px - var(--band));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  width: min(665px, calc(100% - (var(--gutter) * 2)));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+}
+
+.hero__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.hero__heading {
+  margin: 0;
+  width: 100%;
+  font-size: 55px;
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -2.2px;   /* -0.04em, same optical tracking as at 48px */
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.hero__sub {
+  margin: 0;
+  max-width: 454px;
+  font-size: 15px;
+  font-weight: 350;
+  line-height: 1.45;
+  letter-spacing: -0.6px;
+  color: var(--ink-muted);
+  text-wrap: pretty;
+}
+
+/* --- CTAs ------------------------------------------------------------------ */
+.hero__ctas {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+/* One button size across the whole page. Deliberately larger than Figma, which
+   draws every button at 36px/14px — that read too small once the trays panel
+   around the "Compare plans" button was scaled up. Fixed, not viewport-scaled,
+   so a button is the same control everywhere. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 12px 14px;
+  border-radius: 100px;
+  font-size: 16px;
+  line-height: 1.1;
+  letter-spacing: -0.32px;   /* -0.02em, same optical tracking as before */
+  white-space: nowrap;
+  transition: background-color 180ms ease, transform 180ms ease;
+}
+.btn img { width: 18px; height: 18px; flex: none; }
+.btn:active { transform: translateY(1px); }
+
+/* TT Norms Pro's descent is deeper than its ascent, so centring the line box
+   leaves the glyphs sitting ~1.4px high against the icon, which is centred on
+   its own box. Trimming the label to cap-height/baseline makes flex centring
+   optical. The button's 36px height comes from the 16px icon + padding, so
+   trimming the label does not change it. */
+.btn__label,
+.sectionnav__label {
+  text-box: trim-both cap alphabetic;
+}
+@supports not (text-box: trim-both cap alphabetic) {
+  .btn__label        { display: inline-block; transform: translateY(0.8px); }
+  .sectionnav__label { display: inline-block; transform: translateY(0.65px); }
+}
+
+.btn--primary {
+  background: var(--blue);
+  color: #fff;
+  font-weight: 500;
+}
+.btn--primary:hover { background: #0357d1; }
+
+.btn--ghost {
+  background: var(--btn-ghost);
+  color: var(--ink);
+  font-weight: 350;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.btn--ghost:hover { background: rgba(0, 0, 0, 0.05); }
+
+/* ==========================================================================
+   SECTION NAV PILL  (Figma 9:3134 — centred, 28px off the bottom)
+   ========================================================================== */
+.sectionnav {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  max-width: calc(100% - (var(--gutter) * 2));
+}
+.sectionnav ul {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px;
+  border-radius: 1000px;
+  background: var(--pill-foot);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.sectionnav ul::-webkit-scrollbar { display: none; }
+.sectionnav a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Pill totals 42px (38 + 2px padding either side), the same height as a
+     button. 12px either side of each label. */
+  height: 38px;
+  padding: 0 12px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.26px;   /* -0.02em, same as .btn */
+  white-space: nowrap;
+  transition: background-color 160ms ease;
+}
+.sectionnav a:hover { background: rgba(255, 255, 255, 0.5); }
+.sectionnav a[aria-current='true'] {
+  background: var(--pill-foot-on);
+  font-weight: 350;
+}
+
+/* ==========================================================================
+   PROBLEM STATEMENT  (Figma 9:3301)
+   ========================================================================== */
+.problem {
+  min-height: 100vh;
+  min-height: 100svh;
+  background: var(--page-alt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Content block is 539px tall. This padding pair reproduces the frame's
+     158px content top at the design height of 832px, and keeps the block
+     clear of the fixed chrome at every other height. */
+  padding: 119px 0 96px;
+}
+
+/* Desktop reproduces the frame's exact x-offsets on a 1280 stage.
+   Below the breakpoint at the end of this block it collapses to flow. */
+.problem__stage {
+  position: relative;
+  width: 1280px;
+  height: 539px;
+  flex: none;
+}
+
+.problem__eyebrow {
+  position: absolute;
+  left: 156px;
+  top: 8px;
+  width: 90px;
+  margin: 0;
+  font-size: 10px;
+  font-weight: 350;
+  line-height: 1.45;
+  letter-spacing: 0.5px;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--blue);
+  white-space: nowrap;
+}
+
+.problem__col {
+  position: absolute;
+  left: 379px;
+  top: 0;
+  width: 665px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.problem__heading {
+  margin: 0;
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -1.92px;
+  color: var(--ink);
+}
+
+.problem__sub {
+  margin: 12px 0 0;
+  max-width: 454px;
+  font-size: 15px;
+  font-weight: 350;
+  line-height: 1.45;
+  letter-spacing: -0.6px;
+  color: var(--ink-muted);
+  text-wrap: pretty;
+}
+
+.problem__cta { margin-top: 20px; }
+
+/* --- Wall-thickness chart --------------------------------------------------
+   11 bars, 40px wide, 6px apart. The three hatched ones are exported SVGs;
+   the rest are flat mint fills. The annotation overflows the bar box to the
+   right, so the figure does not clip.
+   ------------------------------------------------------------------------- */
+.chart {
+  position: relative;
+  width: 500px;
+  height: 286px;
+  margin: 45px 0 0;
+}
+
+.chart__bars {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 286px;
+}
+
+.chart__bar {
+  width: 40px;
+  flex: none;
+  border-radius: 12px 12px 0 0;
+  background: rgba(209, 250, 229, 0.5);
+}
+/* Exported SVGs already carry their own fill, radius and hatching. */
+.chart__bar--thin {
+  background: none;
+  border-radius: 0;
+  display: block;
+}
+
+/* Figma bakes this as a PNG; a gradient to the section background is the same
+   ramp and stays sharp at any scale. */
+.chart__fade {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 64px;
+  background: linear-gradient(to bottom, rgba(250, 250, 250, 0) 0%, var(--page-alt) 100%);
+  pointer-events: none;
+}
+
+.chart__leader {
+  position: absolute;
+  left: 383.83px;
+  top: 52.84px;
+  width: 185.833px;
+  height: 109.333px;
+  max-width: none;
+}
+
+.chart__note {
+  position: absolute;
+  left: 579px;
+  top: 41px;
+  width: 198px;   /* was 183px at 12px; widened for the 13px floor */
+  margin: 0;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: -0.48px;
+  color: var(--ink-muted);
+}
+
+/* --- Entrance sequence -----------------------------------------------------
+   Plays once when the section scrolls into view. Order is deliberate and does
+   not follow DOM order: copy, then the bars growing left to right, then the
+   leader line tracing out to its note, and the button last.
+
+   Every hidden state is scoped to `.js` so the content is never stranded
+   invisible if the script fails, and to `.problem` for specificity — the
+   shared `.btn` rule sits later in this file and would otherwise win the
+   transition shorthand outright.
+   ------------------------------------------------------------------------- */
+.js .problem__eyebrow,
+.js .problem__heading,
+.js .problem__sub {
+  opacity: 0;
+  translate: 0 10px;
+  transition: opacity 520ms ease, translate 620ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.js .problem__heading { transition-delay: 70ms; }
+.js .problem__sub     { transition-delay: 140ms; }
+
+.js .problem.is-revealed .problem__eyebrow,
+.js .problem.is-revealed .problem__heading,
+.js .problem.is-revealed .problem__sub {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* Bars reveal upward from the baseline. A clip keeps the 12px cap radius and
+   the 45-degree hatching undistorted — scaling the boxes would shear both. */
+.js .chart__bar {
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 620ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(320ms + var(--i) * 40ms);
+}
+.js .problem.is-revealed .chart__bar {
+  clip-path: inset(0 0 0 0);
+}
+
+/* The leader wipes left to right, which is the direction it travels: off the
+   bar, up the diagonal, then along to the note. */
+.js .chart__leader {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 480ms ease-out 1150ms;
+}
+.js .problem.is-revealed .chart__leader {
+  clip-path: inset(0 0 0 0);
+}
+
+.js .chart__note {
+  opacity: 0;
+  transition: opacity 360ms ease 1500ms;
+}
+.js .problem.is-revealed .chart__note { opacity: 1; }
+
+/* Same reveal as the navbar CTA. */
+.js .problem .problem__cta {
+  opacity: 0;
+  translate: -12px 0;
+  transition:
+    opacity 240ms ease 1800ms,
+    translate 420ms cubic-bezier(0.22, 1, 0.36, 1) 1800ms,
+    background-color 180ms ease;
+}
+.js .problem.is-revealed .problem__cta {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* --- Collapse to flow once the 1280 stage no longer fits ------------------- */
+@media (max-width: 1279px) {
+  .problem { padding: 108px var(--gutter) 88px; }
+
+  .problem__stage {
+    position: static;
+    width: 100%;
+    max-width: 665px;
+    height: auto;
+  }
+  .problem__eyebrow {
+    position: static;
+    width: auto;
+    text-align: left;
+    margin-bottom: 12px;
+  }
+  .problem__col { position: static; width: 100%; }
+
+  .chart { width: 100%; max-width: 500px; }
+  .chart__bars { width: 100%; }
+  .chart__bar { width: auto; flex: 1 1 0; min-width: 0; }
+  .chart__bar--thin { object-fit: fill; }
+
+  /* The leader line and its note are anchored to a bar that no longer sits at
+     a fixed x, so the note moves under the chart and the line is dropped. */
+  .chart__leader { display: none; }
+  .chart__note {
+    position: static;
+    width: auto;
+    max-width: 454px;
+    margin-top: 16px;
+  }
+}
+
+/* ==========================================================================
+   TWO CHOICES  (Figma 12:3820)
+   ==========================================================================
+   The copy sits inside the two trays in the photograph, so the composition can
+   only ever scale as a single unit — scaling the photo alone would slide the
+   trays out from under the cards.
+
+   `--u` is one design pixel. It scales the whole 1280x832 frame to cover the
+   viewport (the larger of the width and height ratios), with a 1px floor so it
+   never scales DOWN: below 1280 the frame keeps design size and crops its
+   decorative edges instead, which is what keeps body copy at the 13px floor.
+   Every length below is expressed in multiples of it.
+   ========================================================================== */
+.choices {
+  --u: max(1px, 100vw / 1280, 100svh / 832);
+
+  min-height: 832px;
+  height: 100vh;
+  height: 100svh;
+  background: linear-gradient(to bottom, #f7f7f7 0%, #ebeceb 100%);
+}
+
+.choices__stage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: calc(1280 * var(--u));
+  height: calc(832 * var(--u));
+}
+
+/* Percentages, so this tracks the stage without any unit maths. */
+.choices__photo {
+  position: absolute;
+  left: 0;
+  top: 6.35%;      /* 52.8 of 832 */
+  width: 100%;
+  height: 85.87%;  /* 714.4 of 832 */
+  object-fit: cover;
+  max-width: none;
+  pointer-events: none;
+  user-select: none;
+}
+
+.choices__heading {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  translate: -50% 0;
+  top: calc(136 * var(--u));
+  margin: 0;
+  font-size: calc(32 * var(--u));
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: calc(-1.28 * var(--u));
+  color: var(--ink);
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* --- Tray columns ----------------------------------------------------------
+   Both columns are the same stack: eyebrow, then two cards, 12px apart,
+   starting at y=278. The cards differ in height only because their body copy
+   wraps to one line or two.
+   ------------------------------------------------------------------------- */
+.tray {
+  position: absolute;
+  z-index: 2;
+  top: calc(278 * var(--u));
+  width: calc(194 * var(--u));
+  display: flex;
+  flex-direction: column;
+  gap: calc(12 * var(--u));
+}
+.tray--left  { left: calc(353 * var(--u)); }
+.tray--right { left: calc(734 * var(--u)); }
+
+/* Same styling as the "What we solve" eyebrow: 10px, +0.5px tracking, 350,
+   uppercase, blue. Expressed in --u because this section scales as one unit —
+   at the 1280 design width they are pixel-identical. */
+.tray__eyebrow {
+  margin: 0;
+  font-size: calc(10 * var(--u));
+  font-weight: 350;
+  line-height: 1.45;
+  letter-spacing: calc(0.5 * var(--u));
+  text-transform: uppercase;
+  color: var(--blue);
+  white-space: nowrap;
+}
+
+.tray__card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(8 * var(--u));
+  padding: calc(12 * var(--u));
+  border-radius: calc(12 * var(--u));
+  background: rgba(183, 183, 183, 0.32);
+}
+.tray__icon {
+  width: calc(20 * var(--u));
+  height: calc(20 * var(--u));
+  flex: none;
+}
+
+.tray__title {
+  margin: 0;
+  width: 100%;
+  font-size: calc(18 * var(--u));
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: calc(-0.72 * var(--u));
+  color: #313133;
+}
+
+.tray__body {
+  margin: 0;
+  width: 100%;
+  font-size: calc(15 * var(--u));
+  font-weight: 350;
+  line-height: 1.45;
+  letter-spacing: calc(-0.6 * var(--u));
+  color: var(--ink-muted);
+}
+
+/* Grey logo mark sitting between the trays. */
+.choices__mark {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: calc(23.32 * var(--u));
+  height: calc(23.32 * var(--u));
+  border-radius: 50%;
+  overflow: hidden;
+}
+.choices__mark img {
+  position: absolute;
+  left: calc(-0.9 * var(--u));
+  top: calc(0.41 * var(--u));
+  width: calc(25.181 * var(--u));
+  height: calc(22.304 * var(--u));
+  max-width: none;
+}
+
+/* --- Footnote bar ---------------------------------------------------------- */
+.choices__bar {
+  position: absolute;
+  z-index: 2;
+  left: calc(50% + (2.5 * var(--u)));
+  translate: -50% 0;
+  top: calc(655 * var(--u));
+  width: calc(679 * var(--u));
+  /* 8px around the button on three sides. The button is a fixed 42px control,
+     so the bar's height has to be fixed too (42 + 8 + 8) — a scaled height
+     would reopen the gap above and below it as the window grows. Only the
+     width still tracks the composition. */
+  height: 58px;
+  border-radius: 999px;
+  background: rgba(4, 106, 251, 0.08);
+  overflow: hidden;
+  --bar-inset: 8px;
+}
+/* Absolutely centred and fixed width, so the shell can shrink to nothing
+   around it without the text and button re-laying out. */
+.choices__bar-inner {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  translate: -50% 0;
+  width: calc(679 * var(--u));
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: calc(12 * var(--u));
+  padding: 0 var(--bar-inset) 0 16px;
+}
+.choices__bar-text {
+  flex: 1 0 0;
+  min-width: 0;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 350;
+  line-height: 1.45;
+  letter-spacing: -0.32px;   /* matches the button label */
+  color: var(--ink);
+}
+/* No --u overrides: the button is a control, sized the same as every other
+   button on the page rather than scaling with the composition around it. */
+
+/* --- Entrance sequence -----------------------------------------------------
+   Photograph rises in first, then the title, then both trays in parallel (they
+   are a pair, so the columns reveal by row rather than left to right), then the
+   mark. The footnote bar is last: its shell widens from nothing at the centre,
+   and only then does its content fade in.
+
+   Elements centred with `translate` keep their -50% component in both states,
+   or they would jump sideways as they animate.
+   ------------------------------------------------------------------------- */
+.js .choices__photo,
+.js .choices__heading,
+.js .tray__eyebrow,
+.js .tray__card,
+.js .choices__mark,
+.js .choices__bar-inner {
+  opacity: 0;
+  transition: opacity 520ms ease, translate 620ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Rise distances scale with the composition, like every other length here. */
+.js .choices__photo        { translate: 0 calc(24 * var(--u)); transition-duration: 700ms, 820ms; }
+.js .choices__heading      { translate: -50% calc(10 * var(--u)); }
+.js .tray__eyebrow,
+.js .tray__card            { translate: 0 calc(10 * var(--u)); }
+/* The mark is centred on both axes and the bar inner only fades — neither moves. */
+
+.js .choices__heading       { transition-delay: 240ms; }
+.js .tray__eyebrow          { transition-delay: 420ms; }
+.js .tray__card:nth-child(2){ transition-delay: 490ms; }
+.js .tray__card:nth-child(3){ transition-delay: 560ms; }
+.js .choices__mark          { transition-delay: 660ms; }
+.js .choices__bar-inner     { transition-delay: 1060ms; transition-duration: 300ms; }
+
+/* The shell itself widens from the centre. `translate: -50%` is of its own
+   width, so it stays centred at every frame of the growth. */
+.js .choices__bar {
+  width: 0;
+  transition: width 520ms cubic-bezier(0.22, 1, 0.36, 1) 780ms;
+}
+
+.js .choices.is-revealed .choices__photo,
+.js .choices.is-revealed .choices__heading,
+.js .choices.is-revealed .tray__eyebrow,
+.js .choices.is-revealed .tray__card,
+.js .choices.is-revealed .choices__mark,
+.js .choices.is-revealed .choices__bar-inner {
+  opacity: 1;
+}
+.js .choices.is-revealed .choices__photo,
+.js .choices.is-revealed .tray__eyebrow,
+.js .choices.is-revealed .tray__card   { translate: 0 0; }
+.js .choices.is-revealed .choices__heading { translate: -50% 0; }
+.js .choices.is-revealed .choices__bar { width: calc(679 * var(--u)); }
+
+/* --- Narrow: stack the two columns ----------------------------------------
+   The horizontal photograph cannot hold the copy once the trays are narrower
+   than the cards, so below this width the stage becomes a normal flow column.
+   A portrait photograph showing the trays stacked belongs here — drop it in at
+   assets/trays-vertical.jpg and register the cards to its plates the same way.
+   ------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .choices {
+    --u: 1px;              /* stacked layout uses exact design sizes */
+    min-height: 0;
+    height: auto;
+    /* Bottom padding clears the fixed section pill (28 + 37) with room to spare. */
+    padding: 108px var(--gutter) 120px;
+    display: flex;
+    align-items: center;
+  }
+  .choices__stage {
+    position: static;
+    translate: none;
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .choices__photo,
+  .choices__mark { display: none; }
+
+  .choices__heading {
+    position: static;
+    translate: none;
+    font-size: 26px;
+    letter-spacing: -1.04px;
+    white-space: normal;
+    text-wrap: balance;
+  }
+  .tray {
+    position: static;
+    width: 100%;
+  }
+  .choices__bar {
+    position: static;
+    translate: none;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+  .choices__bar-inner {
+    position: static;
+    translate: none;
+    width: 100%;
+    height: auto;
+    flex-wrap: wrap;
+    padding: 8px 8px 8px 16px;
+  }
+  .choices__bar-text { flex: 1 1 100%; }
+
+  /* No -50% centring here, and the bar wraps to two rows — so it fades in
+     rather than widening, which would fight the wrap. */
+  .js .choices__heading { translate: 0 10px; }
+  .js .choices.is-revealed .choices__heading { translate: 0 0; }
+
+  .js .choices__bar {
+    width: 100%;
+    opacity: 0;
+    translate: 0 10px;
+    transition: opacity 520ms ease 780ms, translate 620ms cubic-bezier(0.22, 1, 0.36, 1) 780ms;
+  }
+  .js .choices.is-revealed .choices__bar {
+    width: 100%;
+    opacity: 1;
+    translate: 0 0;
+  }
+  .js .choices__bar-inner { opacity: 1; transition: none; }
+}
+
+/* ==========================================================================
+   DENTIAL FILLS YOUR CHAIR, TOO  (Figma 22:35)
+   ==========================================================================
+   A full-bleed photograph with the copy set straight onto it. Figma anchors
+   every block to the frame's own 32px margins — copy on the left at the
+   vertical centre line, the white card bottom-left, the benefit cards
+   bottom-right — so they are placed against the section's edges rather than
+   laid out in a grid.
+   ========================================================================== */
+.chair {
+  min-height: 560px;
+  height: 100vh;
+  height: 100svh;
+  /* Behind the photograph while it decodes, so the white copy is never set on
+     a white page. */
+  background: #0b1016;
+  color: #ffffff;
+}
+
+.chair__photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  /* Figma draws the portrait at 230.83% of the frame height, pulled up 61.16%.
+     On a 1280x832 frame that is the crop `cover` gives when the window sits
+     46.75% down the image. */
+  object-fit: cover;
+  object-position: 50% 46.75%;
+  max-width: none;
+  pointer-events: none;
+  user-select: none;
+}
+.chair__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(142.43deg, rgba(0, 0, 0, 0) 27.1%, rgba(0, 0, 0, 0.32) 100%);
+  pointer-events: none;
+}
+
+/* --- Copy, left, on the section's centre line (Figma 22:179) --------------- */
+.chair__intro {
+  position: absolute;
+  z-index: 2;
+  left: var(--gutter);
+  /* Figma centres the block 78px above the frame's middle. `transform` does
+     the centring so `translate` stays free for the entrance. */
+  top: calc(50% - 78px);
+  transform: translateY(-50%);
+  width: min(537px, calc(100% - (var(--gutter) * 2)));
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.chair__heading {
+  margin: 0;
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -1.92px;
+  color: #ffffff;
+}
+.chair__sub {
+  margin: 0;
+  max-width: 454px;
+  font-size: 15px;
+  font-weight: 350;
+  line-height: 1.45;
+  letter-spacing: -0.6px;
+  color: var(--on-dark);
+  text-wrap: pretty;
+}
+
+/* --- White card, bottom left (Figma 22:170) --------------------------------
+   Padded 20 at the top and 8 everywhere else: the button is the card's floor,
+   and the text carries its own 8px optical inset off it.
+   ------------------------------------------------------------------------- */
+.chair__card {
+  position: absolute;
+  z-index: 2;
+  left: var(--gutter);
+  bottom: var(--gutter);
+  width: 300px;
+  max-width: calc(100% - (var(--gutter) * 2));
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 8px 8px;
+  border-radius: 24px;
+  background: #ffffff;
+  overflow: hidden;
+}
+.chair__card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 8px;
+}
+.chair__card-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.72px;
+  color: var(--ink);
+}
+.chair__card-body {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 350;
+  line-height: 1.45;
+  letter-spacing: -0.45px;
+  color: var(--ink-muted);
+  text-wrap: pretty;
+}
+.chair__card-cta { width: 100%; }
+
+/* --- Benefit cards, bottom right (Figma 22:238) ---------------------------- */
+.chair__benefits {
+  position: absolute;
+  z-index: 2;
+  right: var(--gutter);
+  bottom: var(--gutter);
+  width: 330px;
+  max-width: calc(100% - (var(--gutter) * 2));
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.benefit {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 24px;
+  /* Smoked glass rather than a solid fill, so the photograph still reads
+     through the cards. */
+  background: rgba(0, 0, 0, 0.32);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.benefit__icon {
+  width: 32px;
+  height: 32px;
+  flex: none;
+}
+.benefit__text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 8px;
+}
+.benefit__title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.96px;
+  color: #ffffff;
+}
+.benefit__body {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 350;
+  line-height: 1.45;
+  letter-spacing: -0.6px;
+  color: var(--on-dark-muted);
+  text-wrap: pretty;
+}
+
+/* --- Entrance sequence -----------------------------------------------------
+   Four beats, each waiting on the one before it: the fill rises into place as
+   it fades up, then the copy, then the white card, then the two glass cards a
+   breath apart. Fires once the section covers half the viewport — that is what
+   bare `data-reveal` means on the section.
+
+   The fill's travel is a percentage of the photograph's own height, and the
+   scale overhangs by exactly that much on each edge, so the frame stays
+   covered the whole way up whatever the viewport is. Both resolve to nothing
+   at rest, which leaves the crop Figma's to the pixel.
+   ------------------------------------------------------------------------- */
+.js .chair__photo {
+  opacity: 0;
+  translate: 0 2.5%;
+  scale: 1.05;              /* twice the 2.5% travel: 2.5% of overhang a side */
+  transition:
+    opacity 700ms ease,
+    translate 1000ms cubic-bezier(0.22, 1, 0.36, 1),
+    scale 1000ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.js .chair.is-revealed .chair__photo {
+  opacity: 1;
+  translate: 0 0;
+  scale: 1;
+}
+
+.js .chair__intro,
+.js .chair__card,
+.js .benefit {
+  opacity: 0;
+  translate: 0 14px;
+  transition: opacity 520ms ease, translate 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+/* The copy waits for the fill to be most of the way in rather than for it to
+   land, so the beats overlap instead of queueing. The two glass cards are
+   100ms apart — enough to read as one then the other, not so much that they
+   stop arriving as a pair. Last one settles at 800 + 700 = 1500ms. */
+.js .chair__intro         { transition-delay: 380ms; }
+.js .chair__card          { transition-delay: 560ms; }
+.js .benefit:nth-child(1) { transition-delay: 700ms; }
+.js .benefit:nth-child(2) { transition-delay: 800ms; }
+
+.js .chair.is-revealed .chair__intro,
+.js .chair.is-revealed .chair__card,
+.js .chair.is-revealed .benefit {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* --- Narrow: the three blocks stack against the bottom edge ----------------- */
+@media (max-width: 900px) {
+  .chair {
+    height: auto;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 24px;
+    /* Clears the navbar at the top and the section pill at the bottom. */
+    padding: 132px var(--gutter) 96px;
+  }
+  /* A portrait crop in a portrait frame lands on the bright surgical cap, where
+     Figma's corner wash is nowhere near enough to hold white type. The wash
+     stays — it is what shapes the desktop frame — with a vertical darkening
+     laid under it for the two edges the copy and the pill sit against. */
+  .chair__scrim {
+    background:
+      linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.22) 38%, rgba(0, 0, 0, 0.5) 100%),
+      linear-gradient(142.43deg, rgba(0, 0, 0, 0) 27.1%, rgba(0, 0, 0, 0.32) 100%);
+  }
+  .chair__intro,
+  .chair__card,
+  .chair__benefits {
+    position: static;
+    transform: none;
+    width: 100%;
+    max-width: 420px;
+  }
+  .chair__heading { font-size: 34px; letter-spacing: -1.36px; }
+  .chair__card-title,
+  .benefit__title { font-size: 21px; letter-spacing: -0.84px; }
+}
+
+/* ==========================================================================
+   ON EVERY CASE  (Figma 22:312 "state 1" → 23:500 "state 2")
+   ==========================================================================
+   Two frames of one scene. The section is 250svh tall and its stage is pinned
+   to the top of the viewport, so the 150svh of travel underneath becomes a
+   timeline: the page script writes the position along it onto the section as
+   `--p`, running 0 to 1.
+
+   Phase one is scrubbed. The two aligners rise onto their Figma coordinates at
+   different rates, over the blue lede sitting behind them, and both land
+   exactly at `--enter`. Past that they keep drifting a little, so the
+   composition never freezes while the rest of it is still arriving.
+
+   Phase two is not scrubbed — it is a cue. Crossing `--enter` puts `.is-final`
+   on the section and a timed sequence plays: the lede clears, the eyebrow
+   arrives, the frosted panel slides in off the right edge, its copy fills in,
+   the feature list comes up the left, and the button lands last. Scrolling
+   back up takes the class off and the whole thing reverses; the stagger lives
+   in the `.is-final` rules alone, so the way back is immediate rather than an
+   unwind.
+   ========================================================================== */
+
+/* Registered so an unset `--p` computes as 0 instead of making every
+   declaration that reads it invalid on the first frame. */
+@property --p {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+.case {
+  /* Point on the timeline where the aligners land and the scene hands over.
+     The script reads this off the element, so the two cannot drift apart. */
+  --enter: 0.46;
+
+  height: 250vh;
+  height: 250svh;
+  /* `clip` rather than the shared section's `hidden`: `hidden` would make this
+     a scroll container, and the sticky stage inside it would stop sticking. */
+  overflow: clip;
+  /* Figma frames both states on white, a step brighter than --page. The
+     hairline rules in the feature list are drawn against it. */
+  background: #ffffff;
+}
+
+.case__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  /* The panel enters from beyond the right edge and is clipped here. */
+  overflow: hidden;
+}
+
+/* --- The lede, behind the aligners (Figma 23:498) -------------------------- */
+.case__lede {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  /* `transform` centres it so `translate` stays free for the entrance. */
+  transform: translate(-50%, -50%);
+  width: min(665px, calc(100% - (var(--gutter) * 2)));
+  margin: 0;
+  font-size: 60px;
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -2.4px;
+  color: var(--blue-600);
+  text-align: center;
+}
+
+/* --- The aligners ---------------------------------------------------------
+   Not the frame, but the pair's own bounding box inside it: 564x714 at
+   (358, 85), with each image placed as a percentage of that box. Sizing the
+   box scales the whole arrangement with no transform involved, which keeps
+   `translate` free for the scrub and keeps the two registered to each other
+   at every viewport.
+   ------------------------------------------------------------------------- */
+.case__art {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 50%;
+  /* Figma sets the cluster 26px below the frame's middle — 3.64% of its own
+     height, so the offset survives being scaled. */
+  transform: translate(-50%, calc(-50% + 3.64%));
+  /* Height-led: the pair is the tallest thing in the frame, so it is what runs
+     out of room first. 0.79 is the box's own 564/714. */
+  width: min(564px, calc((100svh - 64px) * 0.79), calc(100vw - 96px));
+  aspect-ratio: 564 / 714;
+  pointer-events: none;
+}
+.case__aligner {
+  position: absolute;
+  max-width: none;
+  user-select: none;
+}
+.case__aligner--upper {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 78.992%;
+  /* Figma mirrors this copy (rotate 180 + flip Y, which is a flip in x). */
+  transform: scaleX(-1);
+}
+.case__aligner--lower {
+  left: 9.752%;
+  top: 39.496%;
+  width: 76.596%;
+  height: 60.504%;
+}
+
+/* --- Eyebrow (Figma 23:620) ----------------------------------------------- */
+.case__eyebrow {
+  position: absolute;
+  z-index: 3;
+  left: var(--gutter);
+  top: 166px;
+  margin: 0;
+  font-size: 10px;
+  font-weight: 350;
+  line-height: 1.45;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+
+/* --- Feature list, bottom left (Figma 23:616) ----------------------------- */
+.case__features {
+  position: absolute;
+  z-index: 3;
+  left: var(--gutter);
+  /* 120 off the frame's floor, as drawn. The frosted band is 109px of
+     persistent page chrome, so the block clears its top edge by 11px — and
+     since both are anchored to the bottom, that clearance holds at every
+     viewport height. */
+  bottom: 120px;
+  /* Never past the frame's middle, where the frosted panel starts. */
+  width: min(526px, calc(50vw - (var(--gutter) * 2)));
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+/* Icon beside the copy rather than stacked above it (Figma 23:616). Laid out
+   this way the block is 367px rather than 528, which is what lifts the last
+   feature clear of the frosted band at the bottom of the screen. */
+.case__feature {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.case__feature-icon {
+  width: 32px;
+  height: 32px;
+  flex: none;
+}
+.case__feature-text {
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.case__feature-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.66px;
+  color: var(--ink);
+  text-wrap: balance;
+}
+/* Figma runs the subtext the full width of the text column. Capped here
+   instead: the column now starts 48px in, past the icon, so at full width it
+   would reach the aligners overhanging from 358 — and body copy is the one
+   thing that cannot be read through them. */
+.case__feature-body {
+  margin: 0;
+  max-width: 420px;
+  font-size: 15px;
+  font-weight: 350;
+  line-height: 1.45;
+  letter-spacing: -0.45px;
+  color: var(--ink-muted);
+  text-wrap: pretty;
+}
+/* Runs out rather than stopping, so it reads as passing under the aligners
+   instead of butting into them. */
+.case__rule {
+  height: 1px;
+  background: linear-gradient(90deg, #f1f5f9 43.27%, rgba(255, 255, 255, 0) 100%);
+}
+
+/* --- Frosted panel, right half (Figma 23:550) ----------------------------- */
+.case__panel {
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  /* Half the frame, as drawn, with a ceiling: past it the panel is only
+     adding empty space to the right of copy that stops at 537. */
+  width: min(50vw, 760px);
+  overflow: hidden;
+  background: rgba(198, 198, 198, 0.12);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+/* Figma centres the copy 40px above the middle and hangs the button below it;
+   together the three are centred on the frame, which is how they are set here
+   so the block stays centred at any stage height. */
+.case__panel-inner {
+  position: absolute;
+  left: var(--gutter);
+  top: 50%;
+  transform: translateY(-50%);
+  width: min(537px, calc(100% - (var(--gutter) * 2)));
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.case__heading {
+  margin: 0;
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -1.92px;
+  color: var(--ink);
+}
+.case__sub {
+  margin: 12px 0 0;
+  max-width: 454px;
+  font-size: 15px;
+  font-weight: 350;
+  line-height: 1.45;
+  letter-spacing: -0.6px;
+  color: #636363;
+  text-wrap: pretty;
+}
+/* Figma draws a 284px button at its own size; this is the page's control, at
+   the one size every button on the page uses. The 32px gap is Figma's. */
+.case__cta { margin-top: 32px; }
+
+/* Grey mark in the panel's bottom corner (Figma 23:630). */
+.case__mark {
+  position: absolute;
+  z-index: 2;
+  right: 31.68px;
+  bottom: 39.68px;
+  width: 23.32px;
+  height: 23.32px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.case__mark img {
+  position: absolute;
+  left: -0.9px;
+  top: 0.41px;
+  width: 25.181px;
+  height: 22.304px;
+  max-width: none;
+}
+
+/* --- Phase one: the aligners arrive, scrubbed ------------------------------
+   Each starts a different distance out and both close on zero at `--enter`,
+   so they travel at different speeds and land together. The clamps are what
+   hold them still before the section is reached and stop them running away
+   after it: past `--enter` the term goes negative and each drifts on a few
+   more pixels, then stops.
+   ------------------------------------------------------------------------- */
+.js .case__aligner--upper {
+  opacity: clamp(0, calc(var(--p) * 8), 1);
+  translate: 0 clamp(-24px, calc((var(--enter) - var(--p)) * 300px), 130px);
+}
+.js .case__aligner--lower {
+  opacity: clamp(0, calc((var(--p) - 0.04) * 8), 1);
+  translate: 0 clamp(-12px, calc((var(--enter) - var(--p)) * 430px), 190px);
+}
+
+/* --- Phase two: hidden states ---------------------------------------------
+   The transitions live here and the delays do not, so removing `.is-final`
+   reverses everything at once instead of replaying the stagger backwards.
+   Scoped to `.js` so nothing is stranded invisible if the script fails.
+   ------------------------------------------------------------------------- */
+.js .case__lede {
+  opacity: 0;
+  translate: 0 14px;
+  transition: opacity 620ms ease, translate 820ms var(--ease-entrance);
+}
+.js .case.is-revealed .case__lede {
+  opacity: 1;
+  translate: 0 0;
+}
+
+.js .case__eyebrow,
+.js .case__heading,
+.js .case__sub,
+.js .case__features > * {
+  opacity: 0;
+  translate: 0 12px;
+  transition: opacity 520ms ease, translate 700ms var(--ease-entrance);
+}
+
+/* The one piece that travels sideways: in off the right edge of the stage. */
+.js .case__panel {
+  translate: 100% 0;
+  transition: translate 900ms var(--ease-entrance);
+}
+.js .case__mark {
+  opacity: 0;
+  transition: opacity 420ms ease;
+}
+
+/* Same reveal as the navbar CTA, mirrored — that one enters from the left. */
+.js .case .case__cta {
+  opacity: 0;
+  translate: 12px 0;
+  transition:
+    opacity 240ms ease,
+    translate 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 180ms ease;
+}
+
+/* --- Phase two: the cue ---------------------------------------------------- */
+.js .case.is-final .case__lede {
+  opacity: 0;
+  translate: 0 -18px;
+  /* Out faster than it came in: it is clearing the stage, not performing. */
+  transition-duration: 380ms, 560ms;
+}
+.js .case.is-final .case__eyebrow,
+.js .case.is-final .case__heading,
+.js .case.is-final .case__sub,
+.js .case.is-final .case__features > *,
+.js .case.is-final .case__mark,
+.js .case.is-final .case__cta {
+  opacity: 1;
+  translate: 0 0;
+}
+.js .case.is-final .case__panel { translate: 0 0; }
+
+/* The order the scene assembles in. The panel is 900ms of travel and the
+   title starts at 620, two thirds of the way through it — by then the panel
+   has all but landed, so the copy reads as filling a box that is already
+   there rather than as cargo riding in with it. */
+.js .case.is-final .case__eyebrow     { transition-delay: 60ms; }
+.js .case.is-final .case__panel       { transition-delay: 140ms; }
+.js .case.is-final .case__heading     { transition-delay: 620ms; }
+.js .case.is-final .case__sub         { transition-delay: 700ms; }
+.js .case.is-final .case__mark        { transition-delay: 1100ms; }
+.js .case.is-final .case__features > * { transition-delay: calc(960ms + var(--i) * 55ms); }
+.js .case.is-final .case__cta         { transition-delay: 1460ms; }
+
+/* Scroll-linked motion is the one thing the blanket rule at the end of this
+   file cannot reach, since it is not a transition. */
+@media (prefers-reduced-motion: reduce) {
+  .js .case__aligner--upper,
+  .js .case__aligner--lower {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+/* --- Short windows ---------------------------------------------------------
+   The eyebrow hangs off the top of the stage and the feature block is anchored
+   above the frosted band at the bottom, so it is the window's HEIGHT, not its
+   width, that closes the two on each other. At 367px the block has room to
+   spare down to about 760, below which the eyebrow comes up to meet it. It is
+   the only thing that has to give now — the rows were the tall part.
+   ------------------------------------------------------------------------- */
+@media (max-height: 760px) {
+  .case__eyebrow { top: 130px; }
+}
+
+/* --- Between the stage and the stack --------------------------------------
+   The panel is half the window, so its copy loses width faster than the
+   window does.
+   ------------------------------------------------------------------------- */
+@media (max-width: 1180px) {
+  .case__lede    { font-size: 48px; letter-spacing: -1.92px; }
+  .case__heading { font-size: 38px; letter-spacing: -1.52px; }
+  .case__feature-title { font-size: 20px; letter-spacing: -0.6px; }
+}
+
+/* --- Narrow: the scene stops being a scene ---------------------------------
+   Two columns either side of the aligners cannot survive a phone, so the pin
+   is dropped and the frames become one column in reading order: eyebrow,
+   lede, the pair, the panel's copy, then the features. With no pin there is
+   no `--p` and no `.is-final` — the script drops both — so the entrance falls
+   back to the same single `.is-revealed` cue every other section uses.
+   ------------------------------------------------------------------------- */
+@media (max-width: 900px), (max-height: 660px) {
+  .case {
+    height: auto;
+    overflow: visible;
+  }
+  .case__stage {
+    position: static;
+    height: auto;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 28px;
+    /* Clears the navbar above and the fixed section pill below. */
+    padding: 120px var(--gutter) 128px;
+    /* Short-but-wide windows land here too, where a column running the full
+       width of the glass would be unreadable. */
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .case__eyebrow,
+  .case__lede,
+  .case__panel,
+  .case__features {
+    position: static;
+    transform: none;
+    width: 100%;
+  }
+  .case__eyebrow { order: 1; }
+  .case__lede    { order: 2; font-size: 34px; letter-spacing: -1.36px; text-align: left; }
+  /* In flow, but still positioned: the two aligners are absolute and sized in
+     percentages of this box, so it has to stay their containing block. */
+  .case__art {
+    order: 3;
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    width: min(100%, 340px);
+    margin: 0 auto;
+  }
+  .case__panel   { order: 4; background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .case__features { order: 5; }
+
+  .case__panel-inner {
+    position: static;
+    transform: none;
+    width: 100%;
+  }
+  .case__mark { display: none; }
+
+  /* The pair is in flow now, so the scrub has nothing to scrub against. */
+  .js .case .case__aligner--upper,
+  .js .case .case__aligner--lower {
+    translate: 0 0;
+    opacity: 1;
+  }
+  /* The panel is a block in the column, not a half of the frame, so it rises
+     with everything else instead of sliding in from an edge that is gone. */
+  .js .case .case__panel {
+    opacity: 0;
+    translate: 0 12px;
+    transition: opacity 520ms ease, translate 700ms var(--ease-entrance);
+  }
+  /* The lede stays: with no second state to hand over to, it is the section's
+     opening line rather than something that clears out of the way. */
+  .js .case.is-revealed .case__eyebrow,
+  .js .case.is-revealed .case__lede,
+  .js .case.is-revealed .case__panel,
+  .js .case.is-revealed .case__heading,
+  .js .case.is-revealed .case__sub,
+  .js .case.is-revealed .case__features > *,
+  .js .case.is-revealed .case__cta {
+    opacity: 1;
+    translate: 0 0;
+  }
+  .js .case.is-revealed .case__lede      { transition-delay: 80ms; }
+  .js .case.is-revealed .case__panel     { transition-delay: 220ms; }
+  .js .case.is-revealed .case__heading   { transition-delay: 300ms; }
+  .js .case.is-revealed .case__sub       { transition-delay: 380ms; }
+  .js .case.is-revealed .case__features > * { transition-delay: calc(500ms + var(--i) * 55ms); }
+  .js .case.is-revealed .case__cta       { transition-delay: 900ms; }
+}
+
+/* ==========================================================================
+   CHROME OVER A DARK SECTION
+   ==========================================================================
+   The navbar and the section pill are fixed, so they cross the photographic
+   section carrying whatever colours they were last given. Figma redraws the
+   navbar white over it (22:45); the pill is not drawn on that frame at all, so
+   it takes the same treatment rather than being left black on a dark
+   photograph. Two switches rather than one, because the pill meets the section
+   a screen-height before the navbar does.
+   ========================================================================== */
+
+/* A stroked SVG carries its colour in the file, so each mark is a pair — the
+   black export and Figma's white one, stacked — and the switch cross-fades
+   between them. */
+.markpair {
+  position: relative;
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+.markpair .mark {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.mark { transition: opacity 280ms ease; }
+.mark--light { opacity: 0; }
+body.is-nav-on-dark .nav .mark { opacity: 0; }
+body.is-nav-on-dark .nav .mark--light { opacity: 1; }
+
+.logo__word,
+.nav__switch a,
+.sectionnav a { transition: color 280ms ease, background-color 160ms ease; }
+
+body.is-nav-on-dark .logo__word { color: #ffffff; }
+body.is-nav-on-dark .nav__switch a:not([aria-current='page']) { color: #ffffff; }
+body.is-nav-on-dark .nav__switch a:hover { background: rgba(255, 255, 255, 0.08); }
+body.is-nav-on-dark .nav__lang:hover { background: rgba(255, 255, 255, 0.1); }
+
+/* The pill's own tint inverts with it: a 6% black wash over a dark photograph
+   is no pill at all. The current item keeps its white chip, which already
+   reads as the selected one against the dark. */
+.sectionnav ul { transition: background-color 280ms ease; }
+body.is-pill-on-dark .sectionnav ul { background: rgba(255, 255, 255, 0.14); }
+body.is-pill-on-dark .sectionnav a:not([aria-current='true']) { color: #ffffff; }
+body.is-pill-on-dark .sectionnav a:hover { background: rgba(255, 255, 255, 0.18); }
+
+/* Figma drops the frosted band on this frame, and rightly: over the photograph
+   it both fogs the image and blurs the bottom of the cards standing in it. The
+   fade goes on the layers rather than on `.blur` itself, whose own opacity is
+   spoken for by the page-load sequence below. */
+.blur span { transition: opacity 280ms ease; }
+body.is-pill-on-dark .blur span { opacity: 0; }
+
+/* ==========================================================================
+   PAGE-LOAD SEQUENCE  (hero + chrome)
+   ==========================================================================
+   Runs once on load, not on scroll — the hero is already on screen. Three of
+   the four beats are fixed chrome that lives outside the hero, so the states
+   hang off `body.is-loaded` rather than a section class.
+
+   Order: copy, then the navbar dropping in and the section pill rising, then
+   the video starts playing, then — last — the hero panel drops off the top
+   edge and the marquee is uncovered behind it.
+   ========================================================================== */
+.js .hero__heading,
+.js .hero__sub,
+.js .hero__ctas {
+  opacity: 0;
+  /* A longer travel over a longer duration reads as gliding rather than
+     snapping into place. */
+  translate: 0 20px;
+  transition: opacity 680ms ease, translate 820ms var(--ease-entrance);
+}
+.js .hero__sub  { transition-delay: 160ms; }
+.js .hero__ctas { transition-delay: 320ms; }
+
+/* Navbar drops from above, section pill rises from below, together. The pill
+   is centred with `transform`, so `translate` is free for the entrance. */
+.js .nav {
+  opacity: 0;
+  translate: 0 -22px;
+  /* Figma parents the navbar to the panel (9:3167, 24px inside it); here it is
+     fixed chrome, so it rides the reveal under its own power. `translate` is
+     spoken for by the drop-in above, so the offset goes through `transform` —
+     the two compose, and each keeps its own timing. */
+  transform: translateY(calc(var(--band) * -1));
+  transition:
+    opacity 640ms ease 660ms,
+    translate 780ms var(--ease-entrance) 660ms,
+    transform 760ms var(--ease-entrance) 1840ms;
+}
+.js .sectionnav {
+  opacity: 0;
+  translate: 0 22px;
+  transition: opacity 640ms ease 660ms, translate 780ms var(--ease-entrance) 660ms;
+}
+/* The band belongs to the bottom edge with the pill; it fades, without moving,
+   so the frosted edge does not slide across the video. */
+.js .blur {
+  opacity: 0;
+  transition: opacity 740ms ease 660ms;
+}
+
+/* The video is held back and fades up as playback begins, so "the video
+   starts" is a visible beat rather than a still frame quietly going live. */
+.js .hero__video {
+  opacity: 0;
+  transition: opacity 760ms ease 1080ms;
+}
+
+/* Last, after a beat, and the slowest move of the sequence, so it settles
+   rather than stopping. The panel starts flush with the top edge, covering the
+   marquee completely, and drops its own band height to uncover it. Ends at
+   1840 + 760 = 2600ms. */
+.js .hero__panel {
+  translate: 0 calc(var(--band) * -1);
+  /* Square while it is flush with the top edge: there is no band behind the
+     corners yet, so rounding them there would only cut two notches of blue out
+     of the top of the screen. The corners round as the panel pulls away. */
+  border-radius: 0;
+  transition:
+    translate 760ms var(--ease-entrance) 1840ms,
+    border-radius 760ms var(--ease-entrance) 1840ms;
+}
+
+/* The other half of that beat. The marquee itself never moves and never fades:
+   it is clipped to nothing, and the clip opens across exactly the band height
+   while the panel travels exactly the band height — same duration, easing and
+   delay, so the opening edge and the panel's edge are the same line. Doing it
+   this way rather than parking the marquee behind the panel is what lets it
+   stay on top afterwards, where it belongs, while the hero scrolls away
+   underneath it. */
+.js .ticker {
+  clip-path: inset(0 0 var(--band) 0);
+  transition: clip-path 760ms var(--ease-entrance) 1840ms;
+}
+
+.js body.is-loaded .hero__heading,
+.js body.is-loaded .hero__sub,
+.js body.is-loaded .hero__ctas,
+.js body.is-loaded .nav,
+.js body.is-loaded .sectionnav,
+.js body.is-loaded .blur,
+.js body.is-loaded .hero__panel,
+.js body.is-loaded .hero__video {
+  opacity: 1;
+  translate: 0 0;
+}
+.js body.is-loaded .nav { transform: translateY(0); }
+.js body.is-loaded .hero__panel { border-radius: var(--panel-r) var(--panel-r) 0 0; }
+.js body.is-loaded .ticker { clip-path: inset(0 0 0 0); }
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 900px) {
+  :root { --gutter: 20px; }
+
+  .hero__media { top: calc(118px - var(--band)); }
+  .nav { top: 44px; }
+  .hero__main { top: calc(118px - var(--band)); }
+
+  .hero__heading    { font-size: 41px; letter-spacing: -1.64px; }
+  .problem__heading { font-size: 36px; letter-spacing: -1.44px; }
+  .hero__sub, .problem__sub { font-size: 14.5px; letter-spacing: -0.43px; }
+  .lb { display: none; }
+}
+
+@media (max-width: 700px) {
+  /* Logo + audience switch + CTA + globe stop fitting on one row; the hero and
+     problem section both carry the same CTA in-page, so the nav one goes. */
+  .nav__cta { display: none; }
+}
+
+@media (max-width: 560px) {
+  :root { --gutter: 16px; }
+
+  .nav { gap: 8px; }
+  .nav__left { gap: 10px; }
+  .hero__heading    { font-size: 33px; letter-spacing: -1.32px; }
+  .problem__heading { font-size: 29px; letter-spacing: -1.1px; }
+  .ticker { --tick-gap: 40px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker__track { animation: none; }
+  /* Delay must be zeroed alongside duration: the problem section's entrance
+     staggers run up to 1800ms, so collapsing only the duration would leave
+     the leader, note and button missing for most of two seconds. */
+  * {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+  }
+}

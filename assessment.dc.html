@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Almarai:wght@400;700&display=swap" rel="stylesheet">
+<script src="./system/ds-icon.js"></script>
+<script src="./system/reveal.js"></script>
+<style>
+body{margin:0;background:#F8F9FA;color:#061019;font-family:'TT Norms Pro',Inter,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#0067FF;text-decoration:none}a:hover{color:#0055DD}
+::selection{background:#CBE1E6;color:#061019}
+body:not([data-lang="fr"]):not([data-lang="ar"]) .l-fr:not(.l-en){display:none !important}
+body:not([data-lang="fr"]):not([data-lang="ar"]) .l-ar:not(.l-en){display:none !important}
+body[data-lang="fr"] .l-en:not(.l-fr){display:none !important}
+body[data-lang="fr"] .l-ar:not(.l-fr){display:none !important}
+body[data-lang="ar"] .l-en:not(.l-ar){display:none !important}
+body[data-lang="ar"] .l-fr:not(.l-ar){display:none !important}
+.l-ar,.l-ar *{font-family:'Almarai','TT Norms Pro',Inter,sans-serif !important;letter-spacing:0 !important}
+body[data-lang="ar"]{direction:rtl}
+</style>
+</helmet>
+<dc-import name="Site Nav" mode="patient" active="check" hint-size="100%,68px"></dc-import>
+
+<div data-screen-label="Assessment" style="max-width:760px;margin:0 auto;padding:80px 40px 110px">
+  <div style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:18px;margin-bottom:48px">
+    <span style="display:inline-flex;align-items:center;gap:8px;background:#FFFFFF;border:1px solid #E8EAED;border-radius:999px;padding:8px 16px;font-size:12.5px;font-weight:500;color:#3D3E42"><ds-icon name="IconTypeClipboardCheck" size="14"></ds-icon><span class="l-en">2 minutes · no email · honest answer</span><span class="l-fr">2 minutes · sans e-mail · réponse honnête</span><span class="l-ar">دقيقتان · دون بريد إلكتروني · إجابة صادقة</span></span>
+    <h1 style="font-weight:600;font-size:clamp(34px,4vw,50px);line-height:1.06;letter-spacing:-0.035em;margin:0"><span class="l-en">Are aligners right for you?</span><span class="l-fr">Les aligneurs sont-ils faits pour vous ?</span><span class="l-ar">هل التقويم الشفاف مناسب لك؟</span></h1>
+  </div>
+
+  <sc-if value="{{ inProgress }}" hint-placeholder-val="{{ true }}">
+    <div style="background:#FFFFFF;border-radius:32px;padding:52px">
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:36px">
+        <div style="flex:1;height:8px;border-radius:999px;background:#EDF0F2;overflow:hidden"><div style="height:100%;border-radius:999px;background:#0067FF;transition:width 0.3s;width:{{ progressPct }}"></div></div>
+        <span style="font-size:13px;font-weight:600;color:#6B6D72;flex-shrink:0">{{ stepLabel }}</span>
+      </div>
+      <h2 style="font-weight:600;font-size:24px;letter-spacing:-0.02em;line-height:1.3;margin:0 0 28px"><span class="l-en">{{ qEn }}</span><span class="l-fr">{{ qFr }}</span><span class="l-ar">{{ qAr }}</span></h2>
+      <div style="display:grid;gap:12px">
+        <sc-for list="{{ options }}" as="o" hint-placeholder-count="3">
+          <button onClick="{{ o.pick }}" style="border:1px solid #E1E4E8;cursor:pointer;font-family:inherit;background:#FFFFFF;color:#061019;text-align:start;font-size:15.5px;padding:18px 24px;border-radius:18px;display:flex;align-items:center;gap:14px;transition:border-color 0.15s,background 0.15s" style-hover="border-color:#0067FF;background:#F4F8FF">
+            <span style="width:26px;height:26px;border-radius:999px;border:2px solid #C9CED4;flex-shrink:0"></span>
+            <span><span class="l-en">{{ o.en }}</span><span class="l-fr">{{ o.fr }}</span><span class="l-ar">{{ o.ar }}</span></span>
+          </button>
+        </sc-for>
+      </div>
+      <sc-if value="{{ canGoBack }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ goBack }}" style="border:none;cursor:pointer;font-family:inherit;background:transparent;color:#6B6D72;font-size:14px;font-weight:500;display:inline-flex;align-items:center;gap:8px;margin-top:28px;padding:0" style-hover="color:#061019"><ds-icon name="IconTypeArrowLeft" size="15"></ds-icon><span class="l-en">Back</span><span class="l-fr">Retour</span><span class="l-ar">رجوع</span></button>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ done }}" hint-placeholder-val="{{ false }}">
+    <div style="background:#FFFFFF;border-radius:32px;padding:60px 52px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:22px">
+      <span style="width:76px;height:76px;border-radius:999px;display:flex;align-items:center;justify-content:center;background:{{ resultBg }};color:{{ resultFg }}"><ds-icon name="{{ resultIcon }}" size="34"></ds-icon></span>
+      <h2 style="font-weight:600;font-size:28px;letter-spacing:-0.025em;margin:0;max-width:480px;line-height:1.25"><span class="l-en">{{ rTitleEn }}</span><span class="l-fr">{{ rTitleFr }}</span><span class="l-ar">{{ rTitleAr }}</span></h2>
+      <p style="font-size:15.5px;line-height:1.65;color:#6B6D72;margin:0;max-width:460px"><span class="l-en">{{ rBodyEn }}</span><span class="l-fr">{{ rBodyFr }}</span><span class="l-ar">{{ rBodyAr }}</span></p>
+      <div style="display:flex;gap:12px;margin-top:10px;flex-wrap:wrap;justify-content:center">
+        <a href="patients.dc.html" style="display:inline-flex;align-items:center;gap:10px;background:#0067FF;color:#FFFFFF;padding:15px 26px;border-radius:999px;font-size:14.5px;font-weight:500" style-hover="background:#0055DD"><span class="l-en">How treatment works</span><span class="l-fr">Comment se déroule le traitement</span><span class="l-ar">كيف يتم العلاج</span><ds-icon name="IconTypeArrowRight" size="15"></ds-icon></a>
+        <button onClick="{{ restart }}" style="border:1px solid #E1E4E8;cursor:pointer;font-family:inherit;background:#FFFFFF;color:#061019;padding:15px 26px;border-radius:999px;font-size:14.5px;font-weight:500;display:inline-flex;align-items:center;gap:10px" style-hover="border-color:#061019"><ds-icon name="IconTypeRotateCcw" size="15"></ds-icon><span class="l-en">Start over</span><span class="l-fr">Recommencer</span><span class="l-ar">ابدأ من جديد</span></button>
+      </div>
+      <p style="font-size:12.5px;color:#9BA0A6;line-height:1.55;margin:14px 0 0;max-width:440px"><span class="l-en">This check is guidance, not a diagnosis. Only an in-person examination can confirm treatment.</span><span class="l-fr">Ce test est une orientation, pas un diagnostic. Seul un examen en personne peut confirmer le traitement.</span><span class="l-ar">هذا الاختبار للتوجيه، وليس تشخيصاً. الفحص الشخصي وحده يؤكد العلاج.</span></p>
+    </div>
+  </sc-if>
+</div>
+
+<dc-import name="Site Footer" hint-size="100%,540px"></dc-import>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200}}">
+class Component extends DCLogic {
+  state = { step: 0, answers: [] };
+  questions() {
+    return [
+      { en: "How old are you?", fr: "Quel âge avez-vous ?", ar: "كم عمرك؟", opts: [
+        { en: "Under 16", fr: "Moins de 16 ans", ar: "أقل من 16 سنة", flag: "specialist" },
+        { en: "16 to 25", fr: "16 à 25 ans", ar: "من 16 إلى 25" },
+        { en: "26 to 45", fr: "26 à 45 ans", ar: "من 26 إلى 45" },
+        { en: "Over 45", fr: "Plus de 45 ans", ar: "أكثر من 45" }]},
+      { en: "What bothers you most about your smile?", fr: "Qu'est-ce qui vous gêne le plus dans votre sourire ?", ar: "ما أكثر ما يزعجك في ابتسامتك؟", opts: [
+        { en: "Crowded or overlapping teeth", fr: "Dents serrées ou chevauchées", ar: "أسنان متزاحمة أو متراكبة" },
+        { en: "Gaps between teeth", fr: "Espaces entre les dents", ar: "فراغات بين الأسنان" },
+        { en: "One or two rotated teeth", fr: "Une ou deux dents tournées", ar: "سنّ أو سنّان ملتويتان" },
+        { en: "How my jaws meet (bite)", fr: "La façon dont mes mâchoires se rejoignent", ar: "طريقة إطباق الفكين", score: 1 }]},
+      { en: "How would you rate it?", fr: "Comment l'évalueriez-vous ?", ar: "كيف تقيّم الحالة؟", opts: [
+        { en: "Mild، you'd have to look closely", fr: "Léger، il faut regarder de près", ar: "خفيفة، تحتاج نظرة عن قرب" },
+        { en: "Moderate، visible when I smile", fr: "Modéré، visible quand je souris", ar: "متوسطة، تظهر عندما أبتسم" },
+        { en: "Severe، it affects eating or speech", fr: "Sévère, cela gêne la mastication ou la parole", ar: "شديدة، تؤثر على الأكل أو الكلام", flag: "specialist" }]},
+      { en: "Have you had braces or aligners before?", fr: "Avez-vous déjà porté des bagues ou des aligneurs ?", ar: "هل سبق أن وضعت تقويماً؟", opts: [
+        { en: "Yes, and my teeth have shifted since", fr: "Oui, et mes dents ont bougé depuis", ar: "نعم، وتحركت أسناني منذ ذلك الحين" },
+        { en: "Yes, treatment wasn't completed", fr: "Oui, traitement non terminé", ar: "نعم، ولم يكتمل العلاج", score: 1 },
+        { en: "No, this would be my first time", fr: "Non, ce serait la première fois", ar: "لا، هذه المرة الأولى" }]},
+      { en: "Do your gums bleed when you brush?", fr: "Vos gencives saignent-elles au brossage ?", ar: "هل تنزف لثتك عند تنظيف الأسنان؟", opts: [
+        { en: "No, almost never", fr: "Non, presque jamais", ar: "لا، نادراً جداً" },
+        { en: "Sometimes", fr: "Parfois", ar: "أحياناً", score: 1 },
+        { en: "Often, or my gums are receding", fr: "Souvent, ou mes gencives se rétractent", ar: "كثيراً، أو لثتي تتراجع", flag: "health" }]},
+      { en: "Any untreated cavities or broken teeth?", fr: "Des caries non soignées ou des dents cassées ?", ar: "هل لديك تسوس غير معالج أو أسنان مكسورة؟", opts: [
+        { en: "No, my check-ups are clean", fr: "Non, mes contrôles sont bons", ar: "لا، فحوصاتي سليمة" },
+        { en: "Not sure، no dentist visit in over a year", fr: "Pas sûr(e), pas de visite depuis plus d'un an", ar: "لست متأكداً، لم أزر طبيباً منذ أكثر من سنة", score: 1 },
+        { en: "Yes", fr: "Oui", ar: "نعم", flag: "health" }]},
+      { en: "Are you missing any teeth (besides wisdom teeth)?", fr: "Vous manque-t-il des dents (hors dents de sagesse) ?", ar: "هل تنقصك أسنان (غير أضراس العقل)؟", opts: [
+        { en: "No", fr: "Non", ar: "لا" },
+        { en: "One", fr: "Une", ar: "سن واحدة", score: 1 },
+        { en: "Several", fr: "Plusieurs", ar: "عدة أسنان", flag: "specialist" }]},
+      { en: "Do you have jaw pain or clicking?", fr: "Avez-vous des douleurs ou des claquements de la mâchoire ?", ar: "هل تعاني من ألم أو طقطقة في الفك؟", opts: [
+        { en: "No", fr: "Non", ar: "لا" },
+        { en: "Occasionally", fr: "Occasionnellement", ar: "أحياناً", score: 1 },
+        { en: "Frequently", fr: "Fréquemment", ar: "كثيراً", flag: "specialist" }]},
+      { en: "Aligners work worn 22 hours a day. Realistic for you?", fr: "Les aligneurs se portent 22 heures par jour. Réaliste pour vous ?", ar: "يُرتدى التقويم 22 ساعة يومياً. هل هذا واقعي بالنسبة لك؟", opts: [
+        { en: "Yes, no problem", fr: "Oui, sans problème", ar: "نعم، بلا مشكلة" },
+        { en: "Probably, with some discipline", fr: "Probablement, avec un peu de discipline", ar: "غالباً، مع بعض الالتزام" },
+        { en: "Honestly, no", fr: "Honnêtement, non", ar: "بصراحة، لا", score: 1 }]},
+      { en: "When would you like to start?", fr: "Quand aimeriez-vous commencer ?", ar: "متى تودّ أن تبدأ؟", opts: [
+        { en: "As soon as possible", fr: "Dès que possible", ar: "في أقرب وقت ممكن" },
+        { en: "In the next few months", fr: "Dans les prochains mois", ar: "خلال الأشهر القادمة" },
+        { en: "Just exploring for now", fr: "Je me renseigne pour l'instant", ar: "أستكشف فقط حالياً" }]},
+    ];
+  }
+  result() {
+    const qs = this.questions();
+    const picked = this.state.answers.map((ai, qi) => qs[qi].opts[ai]);
+    if (picked.some(o => o && o.flag === 'health')) return {
+      icon: 'IconTypeHeartPulse', bg: '#FDF0EF', fg: '#C2371F',
+      tEn: 'See your dentist first', tFr: "Consultez d'abord votre dentiste", tAr: 'راجع طبيب أسنانك أولاً',
+      bEn: "Gum bleeding or untreated decay needs care before any tooth movement. Get that treated first, aligners can follow, and your teeth will thank you either way.",
+      bFr: "Un saignement des gencives ou des caries non soignées doivent être traités avant tout déplacement dentaire. Soignez cela d'abord, les aligneurs pourront suivre.",
+      bAr: "نزيف اللثة أو التسوس غير المعالج يحتاج إلى عناية قبل أي تحريك للأسنان. عالج ذلك أولاً، ويمكن للتقويم أن يأتي بعده، وأسنانك ستشكرك في الحالتين.",
+    };
+    if (picked.some(o => o && o.flag === 'specialist')) return {
+      icon: 'IconTypeStethoscope', bg: '#FFF6E8', fg: '#B26B00',
+      tEn: 'Worth a specialist look', tFr: "Un avis de spécialiste s'impose", tAr: 'حالتك تستحق رأي أخصائي',
+      bEn: "Some of your answers point beyond a standard aligner case. That doesn't mean no, it means an in-person exam should decide, possibly with options aligners alone can't offer.",
+      bFr: "Certaines de vos réponses dépassent le cadre d'un cas d'aligneurs standard. Ce n'est pas un non, c'est qu'un examen en personne doit trancher.",
+      bAr: "بعض إجاباتك تتجاوز إطار حالة التقويم الشفاف الاعتيادية. هذا لا يعني الرفض، بل يعني أن الفحص الشخصي هو من يقرر، وربما بخيارات لا يوفرها التقويم الشفاف وحده.",
+    };
+    const caution = picked.filter(o => o && o.score === 1).length;
+    if (caution >= 3) return {
+      icon: 'IconTypeCircleHelp', bg: '#EAF2FF', fg: '#0067FF',
+      tEn: 'Likely a candidate, with a few things to check', tFr: 'Probablement éligible, avec quelques points à vérifier', tAr: 'مؤهّل على الأرجح، مع بعض النقاط للتحقق',
+      bEn: "Nothing rules you out, but a few answers deserve a closer look at the first visit. A scan and photos will settle it in about 20 minutes.",
+      bFr: "Rien ne vous exclut, mais quelques réponses méritent un examen attentif à la première visite. Un scan et des photos trancheront en 20 minutes environ.",
+      bAr: "لا شيء يستبعدك، لكن بعض الإجابات تستحق نظرة أدق في الزيارة الأولى. مسح ضوئي وصور سيحسمان الأمر في نحو 20 دقيقة.",
+    };
+    return {
+      icon: 'IconTypeCircleCheckBig', bg: '#E9FBF3', fg: '#0FA968',
+      tEn: 'You look like a strong candidate', tFr: 'Vous semblez très bien éligible', tAr: 'تبدو مرشحاً ممتازاً',
+      bEn: "Your answers fit the profile aligners treat most predictably. The next step is a scan at a VARIFIT practice, your plan is written by an experienced doctor before anything is made.",
+      bFr: "Vos réponses correspondent au profil que les aligneurs traitent le plus prévisiblement. La prochaine étape : un scan dans un cabinet VARIFIT.",
+      bAr: "إجاباتك تطابق الحالات التي يعالجها التقويم الشفاف بأفضل النتائج. الخطوة التالية: مسح ضوئي في عيادة VARIFIT، يكتب الطبيب ذو الخبرة خطتك قبل تصنيع أي شيء.",
+    };
+  }
+  renderVals() {
+    const qs = this.questions();
+    const { step, answers } = this.state;
+    const done = answers.length >= qs.length;
+    const q = qs[Math.min(step, qs.length - 1)];
+    const r = done ? this.result() : {};
+    return {
+      inProgress: !done, done, canGoBack: step > 0 && !done,
+      progressPct: Math.round(step / qs.length * 100) + '%',
+      stepLabel: (step + 1) + ' / ' + qs.length,
+      qEn: q.en, qFr: q.fr, qAr: q.ar,
+      options: q.opts.map((o, i) => ({
+        en: o.en, fr: o.fr, ar: o.ar,
+        pick: () => {
+          const a = this.state.answers.slice(0, this.state.step); a.push(i);
+          this.setState({ answers: a, step: this.state.step + 1 });
+        },
+      })),
+      goBack: () => this.setState({ step: Math.max(0, step - 1), answers: answers.slice(0, Math.max(0, step - 1)) }),
+      restart: () => this.setState({ step: 0, answers: [] }),
+      resultIcon: r.icon, resultBg: r.bg, resultFg: r.fg,
+      rTitleEn: r.tEn, rTitleFr: r.tFr, rTitleAr: r.tAr,
+      rBodyEn: r.bEn, rBodyFr: r.bFr, rBodyAr: r.bAr,
+    };
+  }
+}
+</script>
+</body>
+</html>

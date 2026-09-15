@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="./system/ds-icon.js"></script>
+<script src="./system/reveal.js"></script>
+<script src="./image-slot.js"></script>
+<style>
+body{margin:0;background:#F8F9FA;color:#061019;font-family:'TT Norms Pro',Inter,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#0067FF;text-decoration:none}a:hover{color:#0055DD}
+::selection{background:#CBE1E6;color:#061019}
+body:not([data-lang="fr"]):not([data-lang="ar"]) .l-fr:not(.l-en){display:none !important}
+body:not([data-lang="fr"]):not([data-lang="ar"]) .l-ar:not(.l-en){display:none !important}
+body[data-lang="fr"] .l-en:not(.l-fr){display:none !important}
+body[data-lang="fr"] .l-ar:not(.l-fr){display:none !important}
+body[data-lang="ar"] .l-en:not(.l-ar){display:none !important}
+body[data-lang="ar"] .l-fr:not(.l-ar){display:none !important}
+@keyframes vf-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+</style>
+</helmet>
+<dc-import name="Site Nav" active="home" hint-size="100%,68px"></dc-import>
+
+<div data-screen-label="Hero" style="max-width:1320px;margin:0 auto;padding:100px 40px 60px">
+  <div style="display:grid;grid-template-columns:7fr 5fr;gap:72px;align-items:center">
+    <div style="display:flex;flex-direction:column;align-items:flex-start;gap:32px">
+      <h1 style="font-weight:600;font-size:clamp(48px,5.4vw,72px);line-height:1.02;letter-spacing:-0.04em;margin:0"><span class="l-en">Every case planned by a <span style="color:#0067FF">experienced doctor</span></span><span class="l-fr l-ar">Chaque cas planifié par un <span style="color:#0067FF">médecin expérimenté</span></span></h1>
+      <p style="font-size:19px;line-height:1.6;color:#6B6D72;max-width:520px;margin:0;text-wrap:pretty"><span class="l-en">You keep the patient and the fee. We deliver a signed plan in 48 hours, aligners in 10 days, and qualified patients to your chair.</span><span class="l-fr l-ar">Vous gardez le patient et les honoraires. Nous livrons un plan signé sous 48 h, les aligneurs sous 10 jours, et des patients qualifiés à votre fauteuil.</span></p>
+      <div style="display:flex;gap:12px;align-items:center">
+        <a href="case-review.dc.html" style="display:inline-flex;align-items:center;gap:10px;background:#0067FF;color:#FFFFFF;padding:16px 28px;border-radius:999px;font-size:15.5px;font-weight:500" style-hover="background:#0055DD"><span class="l-en">Send us one case, free</span><span class="l-fr l-ar">Envoyez un cas, gratuit</span><ds-icon name="IconTypeArrowRight" size="16"></ds-icon></a>
+        <a href="how-it-works.dc.html" style="display:inline-flex;align-items:center;gap:10px;background:#FFFFFF;border:1px solid #E1E4E8;color:#061019;padding:16px 28px;border-radius:999px;font-size:15.5px;font-weight:500" style-hover="border-color:#061019"><span class="l-en">Become a provider</span><span class="l-fr l-ar">Devenir partenaire</span></a>
+      </div>
+    </div>
+    <div style="height:520px;border-radius:32px;overflow:hidden;background:#CBE1E6">
+      <image-slot id="home-hero" shape="rect" placeholder="Hero, printed aligner macro shot"></image-slot>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:60px">
+    <div style="background:#FFFFFF;border-radius:24px;padding:28px 32px;display:flex;align-items:center;gap:18px">
+      <span style="width:48px;height:48px;border-radius:999px;background:#EAF2FF;color:#0067FF;display:flex;align-items:center;justify-content:center;flex-shrink:0"><ds-icon name="IconTypeClock" size="20"></ds-icon></span>
+      <div><div style="font-size:24px;font-weight:600;letter-spacing:-0.03em"><span class="l-en">Plan in 48h</span><span class="l-fr l-ar">Plan sous 48 h</span></div><div style="font-size:13.5px;color:#6B6D72;line-height:1.45"><span class="l-en">signed by a named specialist, aligners in 10 days</span><span class="l-fr l-ar">signé par un spécialiste nommé, aligneurs sous 10 jours</span></div></div>
+    </div>
+    <div style="background:#FFFFFF;border-radius:24px;padding:28px 32px;display:flex;align-items:center;gap:18px">
+      <span style="width:48px;height:48px;border-radius:999px;background:#EAF2FF;color:#0067FF;display:flex;align-items:center;justify-content:center;flex-shrink:0"><ds-icon name="IconTypeGift" size="20"></ds-icon></span>
+      <div><div style="font-size:24px;font-weight:600;letter-spacing:-0.03em"><span class="l-en">First case free</span><span class="l-fr l-ar">Premier cas gratuit</span></div><div style="font-size:13.5px;color:#6B6D72;line-height:1.45"><span class="l-en">compare our plan to the one on your desk</span><span class="l-fr l-ar">comparez notre plan à celui sur votre bureau</span></div></div>
+    </div>
+    <div style="background:#FFFFFF;border-radius:24px;padding:28px 32px;display:flex;align-items:center;gap:18px">
+      <span style="width:48px;height:48px;border-radius:999px;background:#EAF2FF;color:#0067FF;display:flex;align-items:center;justify-content:center;flex-shrink:0"><ds-icon name="IconTypeUserRoundSearch" size="20"></ds-icon></span>
+      <div><div style="font-size:24px;font-weight:600;letter-spacing:-0.03em"><span class="l-en">We fill your chair</span><span class="l-fr l-ar">Nous remplissons votre fauteuil</span></div><div style="font-size:13.5px;color:#6B6D72;line-height:1.45"><span class="l-en">our campaigns send you qualified patients, ready to start</span><span class="l-fr l-ar">nos campagnes vous envoient des patients qualifiés, prêts à commencer</span></div></div>
+    </div>
+  </div>
+</div>
+
+<div data-screen-label="Marquee" style="padding:56px 0 6px;overflow:hidden">
+  <div style="display:flex;white-space:nowrap;animation:vf-marquee 32s linear infinite;width:max-content">
+    <span style="font-size:14px;font-weight:600;color:#9BA0A6;letter-spacing:0.02em;display:inline-flex;align-items:center;gap:52px;padding-right:52px">
+      <span style="display:inline-flex;align-items:center;gap:10px"><span style="width:7px;height:7px;border-radius:999px;background:#0067FF"></span>VARIFIT Print</span>
+      <span style="display:inline-flex;align-items:center;gap:10px"><span style="width:7px;height:7px;border-radius:999px;background:#40FFBC"></span>VARIFIT Form</span>
+      <span style="display:inline-flex;align-items:center;gap:10px"><span style="width:7px;height:7px;border-radius:999px;background:#0067FF"></span>CoDesign</span>
+      <span style="display:inline-flex;align-items:center;gap:10px"><span style="width:7px;height:7px;border-radius:999px;background:#40FFBC"></span><span class="l-en">Prescribe</span><span class="l-fr l-ar">Prescrire</span></span>
+      <span style="display:inline-flex;align-items:center;gap:10px"><span style="width:7px;height:7px;border-radius:999px;background:#0067FF"></span>Force Map</span>
+      <span style="display:inline-flex;align-items:center;gap:10px"><span style="width:7px;height:7px;border-radius:999px;background:#40FFBC"></span>DentialOS</span>
+      <span style="display:inline-flex;align-items:center;gap:10px"><span style="width:7px;height:7px;border-radius:999px;background:#0067FF"></span><span class="l-en">Plan in 48h</span><span class="l-fr l-ar">Plan sous 48 h</span></span>
+      <span style="display:inline-flex;align-items:center;gap:10px"><span style="width:7px;height:7px;border-radius:999px;background:#40FFBC"></span><span class="l-en">Aligners in 10 days</span><span class="l-fr l-ar">Aligneurs sous 10 jours</span></span>
+    </span>
+    <span style="font-size:14px;font-weight:600;color:#9BA0A6;letter-spacing:0.02em;display:inline-flex;align-items:center;gap:52px;padding-right:52px">
+      <span style="display:inline-flex;align-items:center;gap:10px"><span style="width:7px;height:7px;border-radius:999px;background:#0067FF"></span>VARIFIT Print</span>
+      <span style="display:inline-flex;align-items:center;gap:10px"><span style="width:7px;height:7px;border-radius:999px;background:#40FFBC"></span>VARIFIT Form</span>
+      <span style="display:inline-flex;align-items:center;gap:10px"><span style="width:7px;height:7px;border-radius:999px;background:#0067FF"></span>CoDesign</span>
+      <span style="display:inline-flex;align-items:center;gap:10px"><span style="width:7px;height:7px;border-radius:999px;background:#40FFBC"></span><span class="l-en">Prescribe</span><span class="l-fr l-ar">Prescrire</span></span>
+      <span style="display:inline-flex;align-items:center;gap:10px"><span style="width:7px;height:7px;border-radius:999px;background:#0067FF"></span>Force Map</span>
+      <span style="display:inline-flex;align-items:center;gap:10px"><span style="width:7px;height:7px;border-radius:999px;background:#40FFBC"></span>DentialOS</span>
+      <span style="display:inline-flex;align-items:center;gap:10px"><span style="width:7px;height:7px;border-radius:999px;background:#0067FF"></span><span class="l-en">Plan in 48h</span><span class="l-fr l-ar">Plan sous 48 h</span></span>
+      <span style="display:inline-flex;align-items:center;gap:10px"><span style="width:7px;height:7px;border-radius:999px;background:#40FFBC"></span><span class="l-en">Aligners in 10 days</span><span class="l-fr l-ar">Aligneurs sous 10 jours</span></span>
+    </span>
+  </div>
+</div>
+
+<div data-screen-label="Problem" style="padding:60px 20px">
+  <div style="background:#061019;border-radius:32px;color:#FFFFFF">
+    <div style="max-width:1240px;margin:0 auto;padding:110px 64px;display:grid;grid-template-columns:5fr 6fr;gap:96px;align-items:center">
+      <div style="display:flex;flex-direction:column;gap:24px;align-items:flex-start">
+        <h2 style="font-weight:600;font-size:clamp(32px,3.2vw,44px);line-height:1.08;letter-spacing:-0.03em;margin:0;text-wrap:pretty"><span class="l-en">Your aligner is thinnest where you need it thickest</span><span class="l-fr l-ar">Votre aligneur est le plus fin là où il devrait être le plus épais</span></h2>
+        <p style="font-size:17px;line-height:1.65;color:#8D99A3;margin:0"><span class="l-en">Thermoforming stretches the sheet over cusps and incisal edges. That's where the force is meant to land.</span><span class="l-fr l-ar">Le thermoformage étire la plaque sur les cuspides et les bords incisifs. Précisément là où la force doit s'appliquer.</span></p>
+        <p style="font-size:21px;font-weight:500;color:#FFFFFF;margin:0"><span class="l-en">Nobody chose that. The process did.</span><span class="l-fr l-ar">Personne ne l'a choisi. C'est le procédé qui décide.</span></p>
+        <a href="varifit.dc.html" style="display:inline-flex;align-items:center;gap:10px;background:#FFFFFF;color:#061019;padding:14px 26px;border-radius:999px;font-size:14.5px;font-weight:500;margin-top:8px" style-hover="background:#CBE1E6;color:#061019"><span class="l-en">See how VARIFIT fixes it</span><span class="l-fr l-ar">Voir comment VARIFIT corrige cela</span><ds-icon name="IconTypeArrowRight" size="15"></ds-icon></a>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:24px;padding:44px">
+        <div style="display:flex;align-items:flex-end;gap:4px;height:150px;border-bottom:1px solid rgba(255,255,255,0.14);margin-bottom:24px">
+          <div style="flex:1;height:78%;background:#22323D;border-radius:6px 6px 0 0"></div>
+          <div style="flex:1;height:42%;background:#22323D;border-radius:6px 6px 0 0"></div>
+          <div style="flex:1;height:88%;background:#22323D;border-radius:6px 6px 0 0"></div>
+          <div style="flex:1;height:32%;background:#40FFBC;border-radius:6px 6px 0 0"></div>
+          <div style="flex:1;height:92%;background:#22323D;border-radius:6px 6px 0 0"></div>
+          <div style="flex:1;height:26%;background:#40FFBC;border-radius:6px 6px 0 0"></div>
+          <div style="flex:1;height:84%;background:#22323D;border-radius:6px 6px 0 0"></div>
+          <div style="flex:1;height:38%;background:#40FFBC;border-radius:6px 6px 0 0"></div>
+          <div style="flex:1;height:90%;background:#22323D;border-radius:6px 6px 0 0"></div>
+          <div style="flex:1;height:45%;background:#22323D;border-radius:6px 6px 0 0"></div>
+        </div>
+        <div style="font-size:13px;color:#8D99A3;display:flex;align-items:center;gap:8px"><span style="width:10px;height:10px;border-radius:3px;background:#40FFBC;flex-shrink:0"></span><span class="l-en">Wall thickness after forming, thinnest over cusps and incisal edges</span><span class="l-fr l-ar">Épaisseur de paroi après formage, la plus fine sur les cuspides et bords incisifs</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div data-screen-label="Two choices" style="max-width:1320px;margin:0 auto;padding:100px 40px">
+  <div style="max-width:640px;margin:0 auto;text-align:center;display:flex;flex-direction:column;gap:18px;align-items:center;margin-bottom:64px">
+    <h2 style="font-weight:600;font-size:clamp(32px,3.4vw,46px);letter-spacing:-0.03em;line-height:1.06;margin:0"><span class="l-en">Two choices. Made per case.</span><span class="l-fr l-ar">Deux choix. Décidés cas par cas.</span></h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <div style="background:#FFFFFF;border-radius:32px;padding:48px;display:flex;flex-direction:column;gap:28px">
+      <div style="display:flex;align-items:center;gap:14px">
+        <span style="width:48px;height:48px;border-radius:999px;background:#EAF2FF;color:#0067FF;display:flex;align-items:center;justify-content:center"><ds-icon name="IconTypeUsersRound" size="20"></ds-icon></span>
+        <span style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:#6B6D72;font-weight:600"><span class="l-en">How you plan</span><span class="l-fr l-ar">Comment vous planifiez</span></span>
+      </div>
+      <div style="display:grid;gap:20px">
+        <div style="display:flex;gap:16px;align-items:flex-start;background:#F5F7F9;border-radius:20px;padding:22px 24px">
+          <div style="font-size:18px;font-weight:600;min-width:100px">CoDesign</div>
+          <div style="font-size:14.5px;line-height:1.55;color:#6B6D72"><span class="l-en">Plan alongside an experienced doctor.</span><span class="l-fr l-ar">Planifiez aux côtés d'un médecin expérimenté.</span></div>
+        </div>
+        <div style="display:flex;gap:16px;align-items:flex-start;background:#F5F7F9;border-radius:20px;padding:22px 24px">
+          <div style="font-size:18px;font-weight:600;min-width:100px"><span class="l-en">Prescribe</span><span class="l-fr l-ar">Prescrire</span></div>
+          <div style="font-size:14.5px;line-height:1.55;color:#6B6D72"><span class="l-en">Submit intent, an experienced doctor executes it.</span><span class="l-fr l-ar">Soumettez l'intention, un médecin expérimenté l'exécute.</span></div>
+        </div>
+      </div>
+    </div>
+    <div style="background:#FFFFFF;border-radius:32px;padding:48px;display:flex;flex-direction:column;gap:28px">
+      <div style="display:flex;align-items:center;gap:14px">
+        <span style="width:48px;height:48px;border-radius:999px;background:#EAF2FF;color:#0067FF;display:flex;align-items:center;justify-content:center"><ds-icon name="IconTypeLayers" size="20"></ds-icon></span>
+        <span style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:#6B6D72;font-weight:600"><span class="l-en">Which appliance</span><span class="l-fr l-ar">Quel appareil</span></span>
+      </div>
+      <div style="display:grid;gap:20px">
+        <div style="display:flex;gap:16px;align-items:flex-start;background:#F5F7F9;border-radius:20px;padding:22px 24px">
+          <div style="font-size:18px;font-weight:600;min-width:100px;color:#0067FF">Print</div>
+          <div style="font-size:14.5px;line-height:1.55;color:#6B6D72"><span class="l-en">Thickness designed per tooth.</span><span class="l-fr l-ar">Épaisseur conçue dent par dent.</span></div>
+        </div>
+        <div style="display:flex;gap:16px;align-items:flex-start;background:#F5F7F9;border-radius:20px;padding:22px 24px">
+          <div style="font-size:18px;font-weight:600;min-width:100px">Form</div>
+          <div style="font-size:14.5px;line-height:1.55;color:#6B6D72"><span class="l-en">Thermoformed Zendura.</span><span class="l-fr l-ar">Zendura thermoformé.</span></div>
+        </div>
+      </div>
+    </div>
+    <div style="grid-column:1 / -1;background:#CBE1E6;border-radius:24px;padding:26px 40px;display:flex;justify-content:space-between;align-items:center;gap:24px">
+      <div style="font-size:15px;color:#061019;display:flex;align-items:center;gap:12px"><ds-icon name="IconTypeCircleCheck" size="18"></ds-icon><span class="l-en">Same platform, same plan depth, same support. Every combination.</span><span class="l-fr l-ar">Même plateforme, même profondeur de plan, même accompagnement. Toutes les combinaisons.</span></div>
+      <a href="how-it-works.dc.html" style="display:inline-flex;align-items:center;gap:8px;font-size:14.5px;font-weight:600;color:#061019;flex-shrink:0" style-hover="color:#0055DD"><span class="l-en">Compare the four</span><span class="l-fr l-ar">Comparer les quatre</span><ds-icon name="IconTypeArrowRight" size="15"></ds-icon></a>
+    </div>
+  </div>
+</div>
+
+<div data-screen-label="Lead generation" style="max-width:1320px;margin:0 auto;padding:0 40px 100px">
+  <div style="max-width:680px;display:flex;flex-direction:column;gap:16px;align-items:flex-start;margin-bottom:48px">
+    <h2 style="font-weight:600;font-size:clamp(32px,3.4vw,46px);letter-spacing:-0.03em;line-height:1.05;margin:0"><span class="l-en">Dential fills your chair, too</span><span class="l-fr l-ar">Dential remplit aussi votre fauteuil</span></h2>
+    <p style="font-size:17px;color:#6B6D72;line-height:1.6;margin:0"><span class="l-en">You don't just get a lab. Our patient campaigns generate qualified demand and refer it to VARIFIT practices.</span><span class="l-fr l-ar">Vous n'obtenez pas qu'un laboratoire. Nos campagnes patients génèrent une demande qualifiée et l'adressent aux cabinets VARIFIT.</span></p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:14px">
+    <div style="grid-column:span 7;background:#061019;border-radius:28px;padding:44px;display:flex;flex-direction:column;gap:16px;color:#FFFFFF;justify-content:center">
+      <span style="width:48px;height:48px;border-radius:999px;background:rgba(255,255,255,0.08);color:#40FFBC;display:flex;align-items:center;justify-content:center"><ds-icon name="IconTypeUserRoundSearch" size="20"></ds-icon></span>
+      <div style="font-size:22px;font-weight:600;letter-spacing:-0.02em"><span class="l-en">Qualified patients, referred to you</span><span class="l-fr l-ar">Des patients qualifiés, adressés à vous</span></div>
+      <p style="font-size:14.5px;line-height:1.6;color:#8D99A3;margin:0;max-width:480px"><span class="l-en">Dential runs the patient side, campaigns, the patient site and the 2-minute smile check. Patients who qualify are routed to a VARIFIT practice near them: yours.</span><span class="l-fr l-ar">Dential gère le côté patient, campagnes, site patient et test sourire de 2 minutes. Les patients qualifiés sont orientés vers le cabinet VARIFIT le plus proche : le vôtre.</span></p>
+      <a href="patients.dc.html" style="display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:#40FFBC" style-hover="color:#FFFFFF"><span class="l-en">See the patient experience</span><span class="l-fr l-ar">Voir l'expérience patient</span><ds-icon name="IconTypeArrowRight" size="14"></ds-icon></a>
+    </div>
+    <div style="grid-column:span 5;display:grid;gap:14px">
+      <div style="background:#FFFFFF;border-radius:28px;padding:34px;display:flex;gap:18px;align-items:center">
+        <span style="width:46px;height:46px;border-radius:999px;background:#EAF2FF;color:#0067FF;display:flex;align-items:center;justify-content:center;flex-shrink:0"><ds-icon name="IconTypeListChecks" size="19"></ds-icon></span>
+        <div><div style="font-size:16.5px;font-weight:600;margin-bottom:4px"><span class="l-en">Pre-qualified, pre-educated</span><span class="l-fr l-ar">Pré-qualifiés, pré-informés</span></div><p style="font-size:13.5px;line-height:1.55;color:#6B6D72;margin:0"><span class="l-en">Every referral arrives scored by the assessment and already understands aligner treatment.</span><span class="l-fr l-ar">Chaque patient adressé arrive évalué par le test et comprend déjà le traitement par aligneurs.</span></p></div>
+      </div>
+      <div style="background:#CBE1E6;border-radius:28px;padding:34px;display:flex;gap:18px;align-items:center">
+        <span style="width:46px;height:46px;border-radius:999px;background:rgba(255,255,255,0.65);color:#061019;display:flex;align-items:center;justify-content:center;flex-shrink:0"><ds-icon name="IconTypeHandshake" size="19"></ds-icon></span>
+        <div><div style="font-size:16.5px;font-weight:600;margin-bottom:4px"><span class="l-en">You stay the doctor</span><span class="l-fr l-ar">Vous restez le médecin</span></div><p style="font-size:13.5px;line-height:1.55;color:#1D3038;margin:0"><span class="l-en">Your fee, your patient, your chair. We never contact patients directly once referred.</span><span class="l-fr l-ar">Vos honoraires, votre patient, votre fauteuil. Nous ne contactons jamais les patients après l'adressage.</span></p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div data-screen-label="On every case" style="max-width:1320px;margin:0 auto;padding:40px 40px 100px">
+  <div style="display:grid;grid-template-columns:4fr 8fr;gap:72px;align-items:start">
+    <div style="display:flex;flex-direction:column;gap:18px;align-items:flex-start;position:sticky;top:120px">
+      <h2 style="font-weight:600;font-size:clamp(32px,3.2vw,44px);letter-spacing:-0.03em;line-height:1.06;margin:0"><span class="l-en">On every case</span><span class="l-fr l-ar">Sur chaque cas</span></h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:88px;gap:14px">
+      <div style="grid-column:span 4;grid-row:span 3;background:#061019;border-radius:28px;padding:38px;display:flex;flex-direction:column;justify-content:space-between;color:#FFFFFF">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+          <span style="width:46px;height:46px;border-radius:999px;background:rgba(255,255,255,0.08);color:#40FFBC;display:flex;align-items:center;justify-content:center"><ds-icon name="IconTypeRadar" size="19"></ds-icon></span>
+          <span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;font-weight:600;color:#5D6A74"><span class="l-en">Printed cases</span><span class="l-fr l-ar">Cas imprimés</span></span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="font-size:21px;font-weight:600;letter-spacing:-0.02em"><span class="l-en">A Force Map on every printed case</span><span class="l-fr l-ar">Une Force Map sur chaque cas imprimé</span></div>
+          <p style="font-size:13.5px;line-height:1.55;color:#8D99A3;margin:0"><span class="l-en">The intended force per tooth, stage by stage, before the patient wears it.</span><span class="l-fr l-ar">La force prévue par dent, étape par étape, avant que le patient ne le porte.</span></p>
+        </div>
+      </div>
+      <div style="grid-column:span 2;grid-row:span 3;background:#CBE1E6;border-radius:28px;padding:34px;display:flex;flex-direction:column;justify-content:space-between">
+        <span style="width:46px;height:46px;border-radius:999px;background:rgba(255,255,255,0.65);color:#061019;display:flex;align-items:center;justify-content:center"><ds-icon name="IconTypeFileText" size="19"></ds-icon></span>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="font-size:19px;font-weight:600;letter-spacing:-0.02em;line-height:1.2"><span class="l-en">A written plan</span><span class="l-fr l-ar">Un plan écrit</span></div>
+          <p style="font-size:13.5px;line-height:1.55;color:#1D3038;margin:0"><span class="l-en">Not a simulation to approve.</span><span class="l-fr l-ar">Pas une simulation à approuver.</span></p>
+        </div>
+      </div>
+      <div style="grid-column:span 2;grid-row:span 2;background:#FFFFFF;border-radius:28px;padding:30px;display:flex;flex-direction:column;gap:10px;justify-content:center">
+        <span style="width:40px;height:40px;border-radius:999px;background:#EAF2FF;color:#0067FF;display:flex;align-items:center;justify-content:center"><ds-icon name="IconTypeMessageCircle" size="17"></ds-icon></span>
+        <div style="font-size:15px;font-weight:600;line-height:1.35"><span class="l-en">Direct messaging with your planner</span><span class="l-fr l-ar">Messagerie directe avec votre planificateur</span></div>
+      </div>
+      <div style="grid-column:span 2;grid-row:span 2;background:#FFFFFF;border-radius:28px;padding:30px;display:flex;flex-direction:column;gap:10px;justify-content:center">
+        <span style="width:40px;height:40px;border-radius:999px;background:#EAF2FF;color:#0067FF;display:flex;align-items:center;justify-content:center"><ds-icon name="IconTypeSlidersHorizontal" size="17"></ds-icon></span>
+        <div style="font-size:15px;font-weight:600;line-height:1.35"><span class="l-en">Trimline, material, template, your call</span><span class="l-fr l-ar">Découpe, matériau, gabarit, à vous de choisir</span></div>
+      </div>
+      <div style="grid-column:span 2;grid-row:span 2;background:#FFFFFF;border-radius:28px;padding:30px;display:flex;flex-direction:column;gap:10px;justify-content:center">
+        <span style="width:40px;height:40px;border-radius:999px;background:#EAF2FF;color:#0067FF;display:flex;align-items:center;justify-content:center"><ds-icon name="IconTypeScanHeart" size="17"></ds-icon></span>
+        <div style="font-size:15px;font-weight:600;line-height:1.35"><span class="l-en">Monitoring, proposals, consent, included, with Luma free</span><span class="l-fr l-ar">Suivi, propositions, consentement, inclus, avec Luma gratuit</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div data-screen-label="Journey" style="max-width:1320px;margin:0 auto;padding:0 40px 100px">
+  <div style="max-width:640px;margin:0 auto;text-align:center;display:flex;flex-direction:column;gap:18px;align-items:center;margin-bottom:56px">
+    <h2 style="font-weight:600;font-size:clamp(32px,3.4vw,46px);letter-spacing:-0.03em;margin:0"><span class="l-en">Scan to smile, in four steps</span><span class="l-fr l-ar">Du scan au sourire, en quatre étapes</span></h2>
+  </div>
+  <div style="display:grid;gap:14px">
+    <div style="background:#FFFFFF;border-radius:28px;overflow:hidden;display:grid;grid-template-columns:5fr 7fr;height:calc(100vh - 220px);min-height:480px;max-height:760px">
+      <div style="background:#CBE1E6;min-height:0;position:relative;overflow:hidden"><image-slot id="journey-intake" shape="rect" placeholder="Illustration, case intake"></image-slot></div>
+      <div style="padding:40px 48px;display:flex;flex-direction:column;justify-content:center;gap:12px">
+        <div style="display:flex;align-items:center;gap:16px"><span style="width:44px;height:44px;border-radius:999px;background:#061019;color:#40FFBC;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0">01</span><span style="font-size:21px;font-weight:600;letter-spacing:-0.02em"><span class="l-en">One simple case intake</span><span class="l-fr l-ar">Une prise de cas simple et unique</span></span></div>
+        <p style="font-size:15px;line-height:1.6;color:#6B6D72;margin:0;max-width:480px"><span class="l-en">Send the scan from your scanner, add photos by QR from your phone, state your aims, one flow, a few minutes.</span><span class="l-fr l-ar">Envoyez le scan depuis votre scanner, ajoutez les photos par QR depuis votre téléphone, indiquez vos objectifs, un seul flux, quelques minutes.</span></p>
+      </div>
+    </div>
+    <div style="background:#FFFFFF;border-radius:28px;overflow:hidden;display:grid;grid-template-columns:5fr 7fr;height:calc(100vh - 220px);min-height:480px;max-height:760px">
+      <div style="background:#CBE1E6;min-height:0;position:relative;overflow:hidden"><image-slot id="journey-specialist" shape="rect" placeholder="Illustration, specialist planning"></image-slot></div>
+      <div style="padding:40px 48px;display:flex;flex-direction:column;justify-content:center;gap:12px">
+        <div style="display:flex;align-items:center;gap:16px"><span style="width:44px;height:44px;border-radius:999px;background:#061019;color:#40FFBC;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0">02</span><span style="font-size:21px;font-weight:600;letter-spacing:-0.02em"><span class="l-en">A specialist picks it up</span><span class="l-fr l-ar">Un spécialiste prend le relais</span></span></div>
+        <p style="font-size:15px;line-height:1.6;color:#6B6D72;margin:0;max-width:480px"><span class="l-en">Routed to a named experienced doctor. CoDesign or Prescribe, Print or Form, your call, case by case.</span><span class="l-fr l-ar">Acheminé vers un médecin expérimenté nommé. CoDesign ou Prescrire, Print ou Form, à vous de choisir, cas par cas.</span></p>
+      </div>
+    </div>
+    <div style="background:#FFFFFF;border-radius:28px;overflow:hidden;display:grid;grid-template-columns:5fr 7fr;height:calc(100vh - 220px);min-height:480px;max-height:760px">
+      <div style="background:#CBE1E6;min-height:0;position:relative;overflow:hidden"><image-slot id="journey-plan" shape="rect" placeholder="Illustration, plan + Force Map"></image-slot></div>
+      <div style="padding:40px 48px;display:flex;flex-direction:column;justify-content:center;gap:12px">
+        <div style="display:flex;align-items:center;gap:16px"><span style="width:44px;height:44px;border-radius:999px;background:#061019;color:#40FFBC;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0">03</span><span style="font-size:21px;font-weight:600;letter-spacing:-0.02em"><span class="l-en">Plan and Force Map in 48h</span><span class="l-fr l-ar">Plan et Force Map sous 48 h</span></span></div>
+        <p style="font-size:15px;line-height:1.6;color:#6B6D72;margin:0;max-width:480px"><span class="l-en">A written, signed plan, with the intended force per tooth on printed cases, back on your desk in two working days.</span><span class="l-fr l-ar">Un plan écrit et signé, avec la force prévue par dent sur les cas imprimés, sur votre bureau en deux jours ouvrés.</span></p>
+      </div>
+    </div>
+    <div style="background:#FFFFFF;border-radius:28px;overflow:hidden;display:grid;grid-template-columns:5fr 7fr;height:calc(100vh - 220px);min-height:480px;max-height:760px">
+      <div style="background:#CBE1E6;min-height:0;position:relative;overflow:hidden"><image-slot id="journey-approve" shape="rect" placeholder="Illustration, approval + fitting"></image-slot></div>
+      <div style="padding:40px 48px;display:flex;flex-direction:column;justify-content:center;gap:12px">
+        <div style="display:flex;align-items:center;gap:16px"><span style="width:44px;height:44px;border-radius:999px;background:#061019;color:#40FFBC;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0">04</span><span style="font-size:21px;font-weight:600;letter-spacing:-0.02em"><span class="l-en">Approve, and it’s made</span><span class="l-fr l-ar">Approuvez, et c’est fabriqué</span></span></div>
+        <p style="font-size:15px;line-height:1.6;color:#6B6D72;margin:0;max-width:480px"><span class="l-en">Review at your pace, message the planner if anything needs changing. Once approved, aligners reach your practice in 10 days.</span><span class="l-fr l-ar">Relisez à votre rythme, écrivez au planificateur si quelque chose doit changer. Une fois approuvé, les aligneurs arrivent au cabinet sous 10 jours.</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div data-screen-label="Team and switching" style="max-width:1320px;margin:0 auto;padding:0 40px 100px">
+  <div style="display:grid;grid-template-columns:5fr 7fr;gap:16px">
+    <div style="background:#FFFFFF;border-radius:32px;padding:48px;display:flex;flex-direction:column;gap:24px;align-items:flex-start">
+      <span style="width:48px;height:48px;border-radius:999px;background:#EAF2FF;color:#0067FF;display:flex;align-items:center;justify-content:center"><ds-icon name="IconTypeHeartHandshake" size="20"></ds-icon></span>
+      <h2 style="font-weight:600;font-size:30px;letter-spacing:-0.03em;line-height:1.1;margin:0"><span class="l-en">Built by people who still treat</span><span class="l-fr l-ar">Conçu par des praticiens en exercice</span></h2>
+      <p style="font-size:15.5px;line-height:1.6;color:#6B6D72;margin:0"><span class="l-en">A practising experienced doctor and an engineer. Protocols come from a 1,400-patient dataset.</span><span class="l-fr l-ar">Un médecin expérimenté en exercice et un ingénieur. Des protocoles issus d'une base de 1 400 patients.</span></p>
+      <div style="height:220px;width:100%;border-radius:20px;overflow:hidden;background:#EAF2F4">
+        <image-slot id="home-team" shape="rect" placeholder="Founders, in clinic"></image-slot>
+      </div>
+      <a href="clinicians.dc.html" style="display:inline-flex;align-items:center;gap:8px;font-size:14.5px;font-weight:600" style-hover="color:#0055DD"><span class="l-en">Meet the team</span><span class="l-fr l-ar">Rencontrer l'équipe</span><ds-icon name="IconTypeArrowRight" size="15"></ds-icon></a>
+    </div>
+    <div style="background:#FFFFFF;border-radius:32px;padding:48px;display:flex;flex-direction:column;gap:28px">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+        <h2 style="font-weight:600;font-size:30px;letter-spacing:-0.03em;margin:0"><span class="l-en">Switching takes a week</span><span class="l-fr l-ar">Changer prend une semaine</span></h2>
+        <span style="width:48px;height:48px;border-radius:999px;background:#EAF2FF;color:#0067FF;display:flex;align-items:center;justify-content:center;flex-shrink:0"><ds-icon name="IconTypeCalendarSync" size="20"></ds-icon></span>
+      </div>
+      <div style="display:grid;gap:12px">
+        <div style="display:flex;gap:20px;align-items:center;background:#F5F7F9;border-radius:20px;padding:20px 24px">
+          <span style="width:40px;height:40px;border-radius:999px;background:#061019;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0">1</span>
+          <span style="font-size:15px;line-height:1.5"><span class="l-en">Keep your scanner. Send us the serial.</span><span class="l-fr l-ar">Gardez votre scanner. Envoyez-nous le numéro de série.</span></span>
+        </div>
+        <div style="display:flex;gap:20px;align-items:center;background:#F5F7F9;border-radius:20px;padding:20px 24px">
+          <span style="width:40px;height:40px;border-radius:999px;background:#061019;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0">2</span>
+          <span style="font-size:15px;line-height:1.5"><span class="l-en">Submit in minutes. Aims, or use our Design Principles.</span><span class="l-fr l-ar">Soumettez en quelques minutes. Vos objectifs, ou nos Design Principles.</span></span>
+        </div>
+        <div style="display:flex;gap:20px;align-items:center;background:#F5F7F9;border-radius:20px;padding:20px 24px">
+          <span style="width:40px;height:40px;border-radius:999px;background:#061019;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0">3</span>
+          <span style="font-size:15px;line-height:1.5"><span class="l-en">Photos by QR from your phone.</span><span class="l-fr l-ar">Photos par QR depuis votre téléphone.</span></span>
+        </div>
+        <div style="display:flex;gap:20px;align-items:center;background:#F5F7F9;border-radius:20px;padding:20px 24px">
+          <span style="width:40px;height:40px;border-radius:999px;background:#0067FF;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0">4</span>
+          <span style="font-size:15px;line-height:1.5"><span class="l-en">Plan back in 48h. Aligners in 10 days.</span><span class="l-fr l-ar">Plan sous 48 h. Aligneurs sous 10 jours.</span></span>
+        </div>
+      </div>
+      <a href="how-it-works.dc.html" style="display:inline-flex;align-items:center;gap:8px;font-size:14.5px;font-weight:600" style-hover="color:#0055DD"><span class="l-en">How it works, in detail</span><span class="l-fr l-ar">Comment ça marche, en détail</span><ds-icon name="IconTypeArrowRight" size="15"></ds-icon></a>
+    </div>
+  </div>
+</div>
+
+<div data-screen-label="CTA" style="padding:0 20px 20px">
+  <div style="background:#0067FF;border-radius:32px;color:#FFFFFF">
+    <div style="max-width:1240px;margin:0 auto;padding:100px 64px;display:grid;grid-template-columns:7fr 5fr;gap:64px;align-items:center">
+      <div style="display:flex;flex-direction:column;gap:20px">
+        <h2 style="font-weight:600;font-size:clamp(38px,4.2vw,56px);letter-spacing:-0.035em;line-height:1.02;margin:0"><span class="l-en">Try us on one case</span><span class="l-fr l-ar">Essayez-nous sur un cas</span></h2>
+        <p style="font-size:18px;line-height:1.6;color:#C9DDFF;max-width:520px;margin:0"><span class="l-en">Send a live case. Get a full plan back. No cost, no card, no obligation. Compare it to the plan already on your desk.</span><span class="l-fr l-ar">Envoyez un cas réel. Recevez un plan complet. Sans frais, sans carte, sans engagement. Comparez-le au plan déjà sur votre bureau.</span></p>
+      </div>
+      <div style="justify-self:end">
+        <a href="case-review.dc.html" style="display:inline-flex;align-items:center;gap:12px;background:#FFFFFF;color:#061019;padding:20px 36px;border-radius:999px;font-size:16.5px;font-weight:600" style-hover="background:#061019;color:#FFFFFF"><span class="l-en">Send us one case</span><span class="l-fr l-ar">Envoyez-nous un cas</span><ds-icon name="IconTypeArrowRight" size="17"></ds-icon></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<dc-import name="Site Footer" hint-size="100%,540px"></dc-import>
+
+</x-dc>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="./system/ds-icon.js"></script>
+<script src="./system/reveal.js"></script>
+<script src="./image-slot.js"></script>
+<style>
+body{margin:0;background:#F8F9FA;color:#061019;font-family:'TT Norms Pro',Inter,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#0067FF;text-decoration:none}a:hover{color:#0055DD}
+::selection{background:#CBE1E6;color:#061019}
+body:not([data-lang="fr"]):not([data-lang="ar"]) .l-fr:not(.l-en){display:none !important}
+body:not([data-lang="fr"]):not([data-lang="ar"]) .l-ar:not(.l-en){display:none !important}
+body[data-lang="fr"] .l-en:not(.l-fr){display:none !important}
+body[data-lang="fr"] .l-ar:not(.l-fr){display:none !important}
+body[data-lang="ar"] .l-en:not(.l-ar){display:none !important}
+body[data-lang="ar"] .l-fr:not(.l-ar){display:none !important}
+</style>
+</helmet>
+<dc-import name="Site Nav" active="how" hint-size="100%,68px"></dc-import>
+
+<div data-screen-label="Hero" style="max-width:1320px;margin:0 auto;padding:110px 40px 90px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:24px">
+  <h1 style="font-weight:600;font-size:clamp(44px,5vw,68px);line-height:1.02;letter-spacing:-0.04em;margin:0;max-width:800px"><span class="l-en">Two ways to plan. One standard.</span><span class="l-fr l-ar">Deux façons de planifier. Un seul standard.</span></h1>
+  <p style="font-size:19px;line-height:1.6;color:#6B6D72;max-width:520px;margin:0"><span class="l-en">Switch between them case by case. Quality doesn't change.</span><span class="l-fr l-ar">Passez de l'une à l'autre selon le cas. La qualité ne change pas.</span></p>
+</div>
+
+<div data-screen-label="Two modes" style="max-width:1320px;margin:0 auto;padding:0 40px 100px">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <div style="background:#FFFFFF;border-radius:32px;padding:52px;display:flex;flex-direction:column;gap:24px;align-items:flex-start">
+      <span style="width:56px;height:56px;border-radius:999px;background:#EAF2FF;color:#0067FF;display:flex;align-items:center;justify-content:center"><ds-icon name="IconTypeUsersRound" size="24"></ds-icon></span>
+      <div>
+        <div style="font-size:12.5px;letter-spacing:0.08em;text-transform:uppercase;color:#6B6D72;font-weight:600;margin-bottom:10px">Mode 01</div>
+        <h2 style="font-weight:600;font-size:34px;letter-spacing:-0.03em;margin:0 0 8px">CoDesign</h2>
+        <p style="font-size:17px;font-weight:500;color:#0067FF;margin:0"><span class="l-en">Plan alongside a specialist.</span><span class="l-fr l-ar">Planifiez aux côtés d'un spécialiste.</span></p>
+      </div>
+      <p style="font-size:15px;line-height:1.6;color:#6B6D72;margin:0"><span class="l-en">For complex cases, unfamiliar cases, and building your skill on purpose.</span><span class="l-fr l-ar">Pour les cas complexes, les cas inhabituels, et progresser volontairement.</span></p>
+      <div style="display:grid;gap:12px;width:100%">
+        <div style="display:flex;gap:14px;align-items:center;background:#F5F7F9;border-radius:16px;padding:16px 20px"><ds-icon name="IconTypeCircleCheck" size="17" style="color:#0067FF;flex-shrink:0"></ds-icon><span style="font-size:14.5px;line-height:1.5"><span class="l-en">You and the doctor work in the same case</span><span class="l-fr l-ar">Vous travaillez dans le même cas que l'médecin expérimenté</span></span></div>
+        <div style="display:flex;gap:14px;align-items:center;background:#F5F7F9;border-radius:16px;padding:16px 20px"><ds-icon name="IconTypeCircleCheck" size="17" style="color:#0067FF;flex-shrink:0"></ds-icon><span style="font-size:14.5px;line-height:1.5"><span class="l-en">Every decision explained, not just stated</span><span class="l-fr l-ar">Chaque décision expliquée, pas seulement énoncée</span></span></div>
+        <div style="display:flex;gap:14px;align-items:center;background:#F5F7F9;border-radius:16px;padding:16px 20px"><ds-icon name="IconTypeCircleCheck" size="17" style="color:#0067FF;flex-shrink:0"></ds-icon><span style="font-size:14.5px;line-height:1.5"><span class="l-en">Message them for the whole treatment, not just the plan</span><span class="l-fr l-ar">Échangez pendant tout le traitement, pas seulement le plan</span></span></div>
+      </div>
+    </div>
+    <div style="background:#061019;border-radius:32px;padding:52px;display:flex;flex-direction:column;gap:24px;align-items:flex-start;color:#FFFFFF">
+      <span style="width:56px;height:56px;border-radius:999px;background:rgba(255,255,255,0.08);color:#40FFBC;display:flex;align-items:center;justify-content:center"><ds-icon name="IconTypeSendHorizontal" size="24"></ds-icon></span>
+      <div>
+        <div style="font-size:12.5px;letter-spacing:0.08em;text-transform:uppercase;color:#5D6A74;font-weight:600;margin-bottom:10px">Mode 02</div>
+        <h2 style="font-weight:600;font-size:34px;letter-spacing:-0.03em;margin:0 0 8px"><span class="l-en">Prescribe</span><span class="l-fr l-ar">Prescrire</span></h2>
+        <p style="font-size:17px;font-weight:500;color:#40FFBC;margin:0"><span class="l-en">Submit intent. An experienced doctor executes.</span><span class="l-fr l-ar">Soumettez l'intention. Un médecin expérimenté exécute.</span></p>
+      </div>
+      <p style="font-size:15px;line-height:1.6;color:#8D99A3;margin:0"><span class="l-en">For experienced providers and high volume.</span><span class="l-fr l-ar">Pour les praticiens expérimentés et les gros volumes.</span></p>
+      <div style="display:grid;gap:12px;width:100%">
+        <div style="display:flex;gap:14px;align-items:center;background:rgba(255,255,255,0.05);border-radius:16px;padding:16px 20px"><ds-icon name="IconTypeCircleCheck" size="17" style="color:#40FFBC;flex-shrink:0"></ds-icon><span style="font-size:14.5px;line-height:1.5"><span class="l-en">Planned against our Design Principles</span><span class="l-fr l-ar">Planifié selon nos Design Principles</span></span></div>
+        <div style="display:flex;gap:14px;align-items:center;background:rgba(255,255,255,0.05);border-radius:16px;padding:16px 20px"><ds-icon name="IconTypeCircleCheck" size="17" style="color:#40FFBC;flex-shrink:0"></ds-icon><span style="font-size:14.5px;line-height:1.5"><span class="l-en">An experienced doctor, never a technician</span><span class="l-fr l-ar">Un médecin expérimenté, jamais un technicien</span></span></div>
+        <div style="display:flex;gap:14px;align-items:center;background:rgba(255,255,255,0.05);border-radius:16px;padding:16px 20px"><ds-icon name="IconTypeCircleCheck" size="17" style="color:#40FFBC;flex-shrink:0"></ds-icon><span style="font-size:14.5px;line-height:1.5"><span class="l-en">Back in 48 hours, still fully explained</span><span class="l-fr l-ar">Retour sous 48 h, toujours entièrement expliqué</span></span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div data-screen-label="Design principles" style="padding:0 20px 100px">
+  <div style="background:#CBE1E6;border-radius:32px">
+    <div style="max-width:1240px;margin:0 auto;padding:100px 64px;display:grid;grid-template-columns:5fr 7fr;gap:80px">
+      <div style="display:flex;flex-direction:column;gap:20px;align-items:flex-start">
+        <h2 style="font-weight:600;font-size:clamp(30px,3vw,42px);line-height:1.08;letter-spacing:-0.03em;margin:0;text-wrap:pretty"><span class="l-en">Why we don't ask you to drag teeth</span><span class="l-fr l-ar">Pourquoi nous ne vous demandons pas de déplacer des dents</span></h2>
+      </div>
+      <div style="font-size:16.5px;line-height:1.7;color:#1D3038">
+        <p style="margin:0 0 18px"><span class="l-en">A final position that looks right on screen may not be reachable. Specifying one without a mechanical route to it books a refinement in advance.</span><span class="l-fr l-ar">Une position finale qui semble correcte à l'écran n'est pas forcément atteignable. La spécifier sans route mécanique pour y parvenir, c'est réserver un raffinement à l'avance.</span></p>
+        <p style="margin:0 0 28px"><span class="l-en">Global preference sheets make it worse. They routinely contradict each other, and planners quietly ignore what can't be honoured.</span><span class="l-fr l-ar">Les fiches de préférences globales aggravent le problème. Elles se contredisent régulièrement, et les planificateurs ignorent en silence ce qui ne peut être honoré.</span></p>
+        <div style="background:#FFFFFF;border-radius:24px;padding:32px 36px">
+          <p style="font-size:18px;font-weight:500;color:#061019;line-height:1.55;margin:0"><span class="l-en">Design Principles replace both. You set the objective. The protocol finds the most predictable route. The experienced doctor applies judgement where protocol runs out.</span><span class="l-fr l-ar">Les Design Principles remplacent les deux. Vous fixez l'objectif. Le protocole trouve la route la plus prévisible. L'médecin expérimenté applique son jugement là où le protocole s'arrête.</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div data-screen-label="The journey" style="max-width:1320px;margin:0 auto;padding:0 40px 100px">
+  <div style="max-width:640px;margin:0 auto;text-align:center;display:flex;flex-direction:column;gap:18px;align-items:center;margin-bottom:64px">
+    <h2 style="font-weight:600;font-size:clamp(32px,3.4vw,46px);letter-spacing:-0.03em;margin:0"><span class="l-en">Scan to smile, in four steps</span><span class="l-fr l-ar">Du scan au sourire, en quatre étapes</span></h2>
+  </div>
+  <div style="display:grid;gap:14px">
+    <div style="background:#FFFFFF;border-radius:28px;overflow:hidden;display:grid;grid-template-columns:5fr 7fr;min-height:230px">
+      <div style="background:#CBE1E6;min-height:230px"><image-slot id="journey-intake" shape="rect" placeholder="Illustration, case intake"></image-slot></div>
+      <div style="padding:40px 48px;display:flex;flex-direction:column;justify-content:center;gap:12px">
+        <div style="display:flex;align-items:center;gap:16px"><span style="width:44px;height:44px;border-radius:999px;background:#061019;color:#40FFBC;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0">01</span><span style="font-size:21px;font-weight:600;letter-spacing:-0.02em"><span class="l-en">One simple case intake</span><span class="l-fr l-ar">Une prise de cas simple et unique</span></span></div>
+        <p style="font-size:15px;line-height:1.6;color:#6B6D72;margin:0;max-width:480px"><span class="l-en">Send the scan from your scanner, add photos by QR from your phone, state your aims, one flow, a few minutes.</span><span class="l-fr l-ar">Envoyez le scan depuis votre scanner, ajoutez les photos par QR depuis votre téléphone, indiquez vos objectifs, un seul flux, quelques minutes.</span></p>
+      </div>
+    </div>
+    <div style="background:#FFFFFF;border-radius:28px;overflow:hidden;display:grid;grid-template-columns:5fr 7fr;min-height:230px">
+      <div style="background:#CBE1E6;min-height:230px"><image-slot id="journey-specialist" shape="rect" placeholder="Illustration, specialist planning"></image-slot></div>
+      <div style="padding:40px 48px;display:flex;flex-direction:column;justify-content:center;gap:12px">
+        <div style="display:flex;align-items:center;gap:16px"><span style="width:44px;height:44px;border-radius:999px;background:#061019;color:#40FFBC;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0">02</span><span style="font-size:21px;font-weight:600;letter-spacing:-0.02em"><span class="l-en">A specialist picks it up</span><span class="l-fr l-ar">Un spécialiste prend le relais</span></span></div>
+        <p style="font-size:15px;line-height:1.6;color:#6B6D72;margin:0;max-width:480px"><span class="l-en">Routed to a named experienced doctor. CoDesign or Prescribe, Print or Form, your call, case by case.</span><span class="l-fr l-ar">Acheminé vers un médecin expérimenté nommé. CoDesign ou Prescrire, Print ou Form, à vous de choisir, cas par cas.</span></p>
+      </div>
+    </div>
+    <div style="background:#FFFFFF;border-radius:28px;overflow:hidden;display:grid;grid-template-columns:5fr 7fr;min-height:230px">
+      <div style="background:#CBE1E6;min-height:230px"><image-slot id="journey-plan" shape="rect" placeholder="Illustration, plan + Force Map"></image-slot></div>
+      <div style="padding:40px 48px;display:flex;flex-direction:column;justify-content:center;gap:12px">
+        <div style="display:flex;align-items:center;gap:16px"><span style="width:44px;height:44px;border-radius:999px;background:#061019;color:#40FFBC;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0">03</span><span style="font-size:21px;font-weight:600;letter-spacing:-0.02em"><span class="l-en">Plan and Force Map in 48h</span><span class="l-fr l-ar">Plan et Force Map sous 48 h</span></span></div>
+        <p style="font-size:15px;line-height:1.6;color:#6B6D72;margin:0;max-width:480px"><span class="l-en">A written, signed plan, with the intended force per tooth on printed cases, back on your desk in two working days.</span><span class="l-fr l-ar">Un plan écrit et signé, avec la force prévue par dent sur les cas imprimés, sur votre bureau en deux jours ouvrés.</span></p>
+      </div>
+    </div>
+    <div style="background:#FFFFFF;border-radius:28px;overflow:hidden;display:grid;grid-template-columns:5fr 7fr;min-height:230px">
+      <div style="background:#CBE1E6;min-height:230px"><image-slot id="journey-approve" shape="rect" placeholder="Illustration, approval + fitting"></image-slot></div>
+      <div style="padding:40px 48px;display:flex;flex-direction:column;justify-content:center;gap:12px">
+        <div style="display:flex;align-items:center;gap:16px"><span style="width:44px;height:44px;border-radius:999px;background:#061019;color:#40FFBC;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0">04</span><span style="font-size:21px;font-weight:600;letter-spacing:-0.02em"><span class="l-en">Approve, and it’s made</span><span class="l-fr l-ar">Approuvez, et c’est fabriqué</span></span></div>
+        <p style="font-size:15px;line-height:1.6;color:#6B6D72;margin:0;max-width:480px"><span class="l-en">Review at your pace, message the planner if anything needs changing. Once approved, aligners reach your practice in 10 days.</span><span class="l-fr l-ar">Relisez à votre rythme, écrivez au planificateur si quelque chose doit changer. Une fois approuvé, les aligneurs arrivent au cabinet sous 10 jours.</span></p>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;justify-content:center;margin-top:56px">
+    <a href="case-review.dc.html" style="display:inline-flex;align-items:center;gap:10px;background:#0067FF;color:#FFFFFF;padding:16px 30px;border-radius:999px;font-size:15.5px;font-weight:500" style-hover="background:#0055DD"><span class="l-en">Become a provider</span><span class="l-fr l-ar">Devenir partenaire</span><ds-icon name="IconTypeArrowRight" size="16"></ds-icon></a>
+  </div>
+</div>
+
+<dc-import name="Site Footer" hint-size="100%,540px"></dc-import>
+
+</x-dc>
+</body>
+</html>

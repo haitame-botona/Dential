@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dential — Every case planned by an experienced doctor</title>
+<meta name="description" content="You keep the patient and the fee. We deliver a signed plan in 48 hours, aligners in 10 days, and qualified patients to your chair.">
+<script>document.documentElement.classList.add('js');</script>
+<link rel="stylesheet" href="assets/lenis.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ==========================================================================
+     PAGE CHROME — fixed across every section.
+     Each Figma frame repeats the ticker, navbar and section pill at identical
+     coordinates, so they live here once rather than inside each section.
+     ========================================================================== -->
+
+<div class="ticker">
+  <div class="ticker__track">
+    <ul class="ticker__group">
+      <li>Plannification in 48 hours</li>
+      <li>aligners in your desk in 10 days</li>
+      <li>first usecase for free</li>
+      <li>qualified leads right to your chair</li>
+      <li>Plannification in 48 hours</li>
+      <li>aligners in your desk in 10 days</li>
+      <li>first usecase for free</li>
+      <li>qualified leads right to your chair</li>
+      <li>Plannification in 48 hours</li>
+      <li>aligners in your desk in 10 days</li>
+      <li>first usecase for free</li>
+      <li>qualified leads right to your chair</li>
+    </ul>
+    <ul class="ticker__group" aria-hidden="true">
+      <li>Plannification in 48 hours</li>
+      <li>aligners in your desk in 10 days</li>
+      <li>first usecase for free</li>
+      <li>qualified leads right to your chair</li>
+      <li>Plannification in 48 hours</li>
+      <li>aligners in your desk in 10 days</li>
+      <li>first usecase for free</li>
+      <li>qualified leads right to your chair</li>
+      <li>Plannification in 48 hours</li>
+      <li>aligners in your desk in 10 days</li>
+      <li>first usecase for free</li>
+      <li>qualified leads right to your chair</li>
+    </ul>
+  </div>
+</div>
+
+<header class="nav">
+  <div class="nav__left">
+    <a class="logo" href="/" aria-label="Dential — home">
+      <span class="logo__symbol">
+        <img class="mark" src="assets/logo-graphic.svg" alt="" aria-hidden="true">
+        <img class="mark mark--light" src="assets/logo-graphic-white.svg" alt="" aria-hidden="true">
+      </span>
+      <img class="logo__dot mark" src="assets/logo-dot.svg" alt="" aria-hidden="true">
+      <img class="logo__dot mark mark--light" src="assets/logo-dot-white.svg" alt="" aria-hidden="true">
+      <p class="logo__word">Dential</p>
+    </a>
+
+    <nav class="nav__switch" aria-label="Audience">
+      <a href="#" aria-current="page"><span class="sectionnav__label">For dentists</span></a>
+      <a href="#"><span class="sectionnav__label">For patients</span></a>
+    </nav>
+  </div>
+
+  <div class="nav__actions">
+    <!-- Hidden in the hero frame, revealed once the hero scrolls away. -->
+    <a class="btn btn--primary nav__cta" href="#">
+      <span class="btn__label">Send a usecase for free</span>
+      <img src="assets/icon-arrow-white.svg" alt="" aria-hidden="true">
+    </a>
+    <button class="nav__lang" type="button" aria-label="Change language">
+      <span class="markpair">
+        <img class="mark" src="assets/icon-globe.svg" alt="" aria-hidden="true">
+        <img class="mark mark--light" src="assets/icon-globe-white.svg" alt="" aria-hidden="true">
+      </span>
+    </button>
+  </div>
+</header>
+
+<!-- Fixed frosted band along the bottom edge. Page chrome like the ticker,
+     navbar and section pill: it stays put and content scrolls behind it. -->
+<div class="blur" aria-hidden="true">
+  <span></span><span></span><span></span><span></span><span></span>
+</div>
+
+<nav class="sectionnav" aria-label="Sections">
+  <ul>
+    <li><a href="#overview" aria-current="true"><span class="sectionnav__label">Overview</span></a></li>
+    <li><a href="#"><span class="sectionnav__label">How it works</span></a></li>
+    <li><a href="#"><span class="sectionnav__label">Our aligners</span></a></li>
+    <li><a href="#"><span class="sectionnav__label">The difference</span></a></li>
+    <li><a href="#"><span class="sectionnav__label">Education</span></a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- ========================================================================
+       HERO  (Figma 9:3131)
+       ======================================================================== -->
+  <section class="section hero" id="overview">
+    <!-- The rounded sheet (Figma 22:160). It sits one marquee-height down from
+         the top edge, so the blue band shows above it; on load it starts flush
+         with that edge and slides down to uncover it. -->
+    <div class="hero__panel">
+      <div class="hero__media">
+        <div class="hero__media-fallback" aria-hidden="true"></div>
+        <video class="hero__video" autoplay muted loop playsinline preload="auto" poster="assets/hero-poster.jpg">
+          <source src="assets/hero.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="hero__main">
+        <div class="hero__text">
+          <h1 class="hero__heading">Every case planned <br class="lb">by an experienced doctor</h1>
+          <p class="hero__sub">You keep the patient and the fee. We deliver a signed plan in 48 hours, <br class="lb">aligners in 10 days, and qualified patients to your chair.</p>
+        </div>
+
+        <div class="hero__ctas">
+          <a class="btn btn--primary" href="#">
+            <span class="btn__label">Send a usecase for free</span>
+            <img src="assets/icon-arrow-white.svg" alt="" aria-hidden="true">
+          </a>
+          <a class="btn btn--ghost" href="#">
+            <span class="btn__label">Become a provider</span>
+            <img src="assets/icon-arrow-black.svg" alt="" aria-hidden="true">
+          </a>
+        </div>
+      </div>
+    </div><!-- /.hero__panel -->
+  </section>
+
+  <!-- ========================================================================
+       PROBLEM STATEMENT  (Figma 9:3301)
+       ======================================================================== -->
+  <section class="section problem" id="problem" data-reveal aria-labelledby="problem-heading">
+    <div class="problem__stage">
+
+      <p class="problem__eyebrow">What we solve</p>
+
+      <div class="problem__col">
+        <h2 class="problem__heading" id="problem-heading">Your aligner is thinnest <br class="lb">where you need it thickest</h2>
+        <p class="problem__sub">Thermoforming stretches the sheet over cusps and incisal edges. <br class="lb">That&rsquo;s where the force is meant to land.</p>
+
+        <a class="btn btn--primary problem__cta" href="#">
+          <span class="btn__label">See how VARIFIT fixes it</span>
+          <img src="assets/icon-arrow-white.svg" alt="" aria-hidden="true">
+        </a>
+
+        <figure class="chart">
+          <div class="chart__bars">
+            <div class="chart__bar" style="height:220px;--i:0"></div>
+            <div class="chart__bar" style="height:98px;--i:1"></div>
+            <div class="chart__bar" style="height:255px;--i:2"></div>
+            <img class="chart__bar chart__bar--thin" src="assets/bar-hatch-140.svg" alt="" style="height:140px;--i:3">
+            <div class="chart__bar" style="height:204px;--i:4"></div>
+            <div class="chart__bar" style="height:286px;--i:5"></div>
+            <img class="chart__bar chart__bar--thin" src="assets/bar-hatch-92.svg" alt="" style="height:92px;--i:6">
+            <div class="chart__bar" style="height:286px;--i:7"></div>
+            <img class="chart__bar chart__bar--thin" src="assets/bar-hatch-119.svg" alt="" style="height:119px;--i:8">
+            <div class="chart__bar" style="height:220px;--i:9"></div>
+            <div class="chart__bar" style="height:167px;--i:10"></div>
+            <div class="chart__fade" aria-hidden="true"></div>
+          </div>
+
+          <img class="chart__leader" src="assets/chart-annotation.svg" alt="" aria-hidden="true">
+          <figcaption class="chart__note">Wall thickness after forming, <br class="lb">thinnest over cusps and incisal edges</figcaption>
+        </figure>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================================================
+       TWO CHOICES  (Figma 12:3820)
+       The copy sits inside the two trays in the photograph, so the whole
+       composition is a fixed 1280x832 stage: the photo renders at its design
+       size and every element keeps its design coordinate. Alignment with the
+       trays is therefore identical to Figma at any viewport — narrow screens
+       crop the decorative instruments at the edges, never the trays.
+       ======================================================================== -->
+  <section class="section choices" id="choices" data-reveal aria-labelledby="choices-heading">
+    <div class="choices__stage">
+      <img class="choices__photo" src="assets/trays.jpg" alt="Two empty stainless surgical trays on a white surface, surrounded by dental instruments">
+
+      <h2 class="choices__heading" id="choices-heading">Two choices. Made per case.</h2>
+
+      <div class="tray tray--left">
+        <p class="tray__eyebrow">How you plan</p>
+        <div class="tray__card">
+          <img class="tray__icon" src="assets/icon-codesign.svg" alt="" aria-hidden="true">
+          <h3 class="tray__title">CoDesign</h3>
+          <p class="tray__body">Plan alongside an experienced doctor.</p>
+        </div>
+        <div class="tray__card">
+          <img class="tray__icon" src="assets/icon-prescribe.svg" alt="" aria-hidden="true">
+          <h3 class="tray__title">Prescribe</h3>
+          <p class="tray__body">Submit intent, an experienced doctor executes it.</p>
+        </div>
+      </div>
+
+      <div class="tray tray--right">
+        <p class="tray__eyebrow">Which appliance</p>
+        <div class="tray__card">
+          <img class="tray__icon" src="assets/icon-print.svg" alt="" aria-hidden="true">
+          <h3 class="tray__title">Print</h3>
+          <p class="tray__body">Thickness designed per tooth.</p>
+        </div>
+        <div class="tray__card">
+          <img class="tray__icon" src="assets/icon-form.svg" alt="" aria-hidden="true">
+          <h3 class="tray__title">Form</h3>
+          <p class="tray__body">Thermoformed Zendura.</p>
+        </div>
+      </div>
+
+      <span class="choices__mark" aria-hidden="true">
+        <img src="assets/logo-mark-grey.svg" alt="">
+      </span>
+
+      <!-- The bar expands from zero width, so its contents live in a fixed-width
+           inner box that stays centred and does not reflow while it grows. -->
+      <div class="choices__bar">
+        <div class="choices__bar-inner">
+          <p class="choices__bar-text">Same platform, same plan depth, same support. Every combination</p>
+          <a class="btn btn--primary" href="#">
+            <span class="btn__label">Compare plans</span>
+            <img src="assets/icon-arrow-white.svg" alt="" aria-hidden="true">
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================================================
+       DENTIAL FILLS YOUR CHAIR, TOO  (Figma 22:35)
+       The photograph is the section now, edge to edge, with the copy placed
+       straight onto it. Everything is anchored to the frame's own 32px margins
+       rather than to a grid, exactly as Figma draws it.
+       ======================================================================== -->
+  <section class="section chair" id="chair" data-reveal aria-labelledby="chair-heading">
+    <img class="chair__photo" src="assets/chair.jpg" alt="A dentist in scrubs, mask and cap working at a patient's chairside">
+    <div class="chair__scrim" aria-hidden="true"></div>
+
+    <div class="chair__intro">
+      <h2 class="chair__heading" id="chair-heading">Dential fills your chair, too</h2>
+      <p class="chair__sub">You don&rsquo;t just get a lab. Our patient campaigns generate qualified demand and refer it to VARIFIT practices.</p>
+    </div>
+
+    <div class="chair__card">
+      <div class="chair__card-text">
+        <h3 class="chair__card-title">Qualified patients, referred to you!</h3>
+        <p class="chair__card-body">Dential runs the patient side, campaigns, the patient site and the 2-minute smile check. <br class="lb">Patients who qualify are routed to a VARIFIT practice near them: yours.</p>
+      </div>
+      <a class="btn btn--primary chair__card-cta" href="#">
+        <span class="btn__label">See the patient experience</span>
+        <img src="assets/icon-arrow-white.svg" alt="" aria-hidden="true">
+      </a>
+    </div>
+
+    <div class="chair__benefits">
+      <div class="benefit">
+        <img class="benefit__icon" src="assets/icon-prequalified.svg" alt="" aria-hidden="true">
+        <div class="benefit__text">
+          <h3 class="benefit__title">Pre-qualified, pre-educated</h3>
+          <p class="benefit__body">Every referral arrives scored by the assessment and already understands aligner treatment.</p>
+        </div>
+      </div>
+
+      <div class="benefit">
+        <img class="benefit__icon" src="assets/icon-stay-doctor.svg" alt="" aria-hidden="true">
+        <div class="benefit__text">
+          <h3 class="benefit__title">You stay the doctor</h3>
+          <p class="benefit__body">You fee, your patient, your chair. We never contact patients directly once referred.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       ON EVERY CASE  (Figma 22:312 "state 1" → 23:500 "state 2")
+       Two frames of one scene, joined by the scroll. The section is taller than
+       the viewport and its stage is pinned to the top, so the distance between
+       the two is a timeline the page script writes onto the section as `--p`.
+       First the aligners settle onto the blue lede; then the scene hands over
+       to its final state. See the stylesheet for the two phases.
+       ======================================================================== -->
+  <!-- data-reveal is set so the cue lands with the section's top a third of the
+       way down the viewport. Pinned, that is the lede rising into the middle of
+       the screen; stacked, it is the eyebrow arriving. -->
+  <section class="section case" id="case" data-reveal="65" aria-labelledby="case-heading">
+    <div class="case__stage">
+
+      <!-- Behind the aligners, and the first thing on screen. -->
+      <p class="case__lede">Thickness<br>as a design variable</p>
+
+      <!-- The pair as one block: see .case__art, which is the cluster's own
+           bounding box in the Figma frame rather than the frame itself. -->
+      <div class="case__art" aria-hidden="true">
+        <img class="case__aligner case__aligner--upper" src="assets/aligner.png" alt="">
+        <img class="case__aligner case__aligner--lower" src="assets/aligner.png" alt="">
+      </div>
+
+      <p class="case__eyebrow">On every case</p>
+
+      <div class="case__features">
+        <div class="case__feature" style="--i:0">
+          <img class="case__feature-icon" src="assets/icon-written-plan.svg" alt="" aria-hidden="true">
+          <div class="case__feature-text">
+            <h3 class="case__feature-title">A written plan</h3>
+            <p class="case__feature-body">The reasoning written out, not just a file to approve.</p>
+          </div>
+        </div>
+
+        <span class="case__rule" style="--i:1" aria-hidden="true"></span>
+
+        <div class="case__feature" style="--i:2">
+          <img class="case__feature-icon" src="assets/icon-messaging.svg" alt="" aria-hidden="true">
+          <div class="case__feature-text">
+            <h3 class="case__feature-title">Direct messaging with your planner</h3>
+            <p class="case__feature-body">Ask the doctor who planned the case, inside the case.</p>
+          </div>
+        </div>
+
+        <span class="case__rule" style="--i:3" aria-hidden="true"></span>
+
+        <div class="case__feature" style="--i:4">
+          <img class="case__feature-icon" src="assets/icon-your-call.svg" alt="" aria-hidden="true">
+          <div class="case__feature-text">
+            <h3 class="case__feature-title">Trimline, material, template, your call</h3>
+            <p class="case__feature-body">Set your defaults once, override them case by case.</p>
+          </div>
+        </div>
+
+        <span class="case__rule" style="--i:5" aria-hidden="true"></span>
+
+        <div class="case__feature" style="--i:6">
+          <img class="case__feature-icon" src="assets/icon-monitoring.svg" alt="" aria-hidden="true">
+          <div class="case__feature-text">
+            <h3 class="case__feature-title">Monitoring, proposals, consent, <br class="lb">included, with Luma free</h3>
+            <p class="case__feature-body">The whole patient-facing workflow, at no extra cost.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Frosted half of the frame. Slides in off the right edge, which the
+           stage clips, and carries its own copy in with it. -->
+      <div class="case__panel">
+        <div class="case__panel-inner">
+          <h2 class="case__heading" id="case-heading">A Force map on every printed case</h2>
+          <p class="case__sub">The intended force per tooth, stage by stage, before the patient wears it.</p>
+          <a class="btn btn--primary case__cta" href="#">
+            <span class="btn__label">See the patient experience</span>
+            <img src="assets/icon-arrow-white.svg" alt="" aria-hidden="true">
+          </a>
+        </div>
+        <span class="case__mark" aria-hidden="true">
+          <img src="assets/logo-mark-grey.svg" alt="">
+        </span>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<script src="assets/lenis.min.js"></script>
+<script>
+  (function () {
+    var body = document.body;
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // --- page-load sequence -------------------------------------------------
+    // The markup keeps `autoplay` so the video still plays with no JS; here it
+    // is held back so it can start on cue, after the chrome has arrived.
+    var heroVideo = document.querySelector('.hero__video');
+    var VIDEO_CUE = 1080;  // ms, matches the delays in the stylesheet
+    if (heroVideo && !reduced) heroVideo.pause();
+
+    function startHeroVideo() {
+      if (!heroVideo) return;
+      var playing = heroVideo.play();
+      if (playing && playing.catch) playing.catch(function () {});
+    }
+
+    // Two frames, so the hidden state is committed before the class flips and
+    // the transitions actually run rather than being skipped.
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        body.classList.add('is-loaded');
+        if (reduced) startHeroVideo();
+        else window.setTimeout(startHeroVideo, VIDEO_CUE);
+      });
+    });
+
+    // --- chrome colour over the photographic section ------------------------
+    // The navbar and the section pill are fixed, so they cross that section
+    // carrying whatever colours they were last given. Each flips on its own
+    // cue: the pill meets the section roughly a screen-height before the
+    // navbar does. Measured off the chrome's real boxes rather than against
+    // the offsets in the stylesheet, so moving either one cannot desync them.
+    var darkSection = document.querySelector('.chair');
+    var navEl = document.querySelector('.nav');
+    var pillEl = document.querySelector('.sectionnav');
+
+    // Flips as the section's edge passes the middle of the chrome rather than
+    // clearing it entirely, so the half-on-one-half-on-the-other moment is as
+    // short as it can be.
+    function overDark(el) {
+      if (!darkSection || !el) return false;
+      var chrome = el.getBoundingClientRect();
+      var mid = (chrome.top + chrome.bottom) / 2;
+      var dark = darkSection.getBoundingClientRect();
+      return dark.top <= mid && dark.bottom >= mid;
+    }
+
+    // --- "On every case": one scene pinned across two viewports of scroll ---
+    // The section is taller than its stage and the stage is sticky, so the
+    // difference between the two is a timeline. `--p` is the position along it,
+    // 0 to 1, and the stylesheet scrubs the aligners against it. Past --enter
+    // the scene hands over to its second state, which is a timed sequence
+    // rather than a scrubbed one and so gets a class rather than a number. It
+    // releases lower than it catches, so a scroll that idles on the boundary
+    // cannot flutter between the two.
+    var caseEl = document.querySelector('.case');
+    var caseStage = caseEl && caseEl.querySelector('.case__stage');
+    var caseTravel = 0;
+    var caseEnter = 0.46;
+    if (caseEl) {
+      // Read off the element rather than repeated here, so the cue in the
+      // stylesheet and the cue in this script cannot drift apart.
+      var declared = parseFloat(getComputedStyle(caseEl).getPropertyValue('--enter'));
+      if (declared > 0 && declared < 1) caseEnter = declared;
+    }
+
+    function measureCase() {
+      caseTravel = caseStage ? caseEl.offsetHeight - caseStage.offsetHeight : 0;
+    }
+
+    function updateCase() {
+      if (!caseEl) return;
+      // Narrow layouts drop the pin: the section collapses onto its stage, so
+      // there is nothing to scrub and the stylesheet falls back to the same
+      // one-shot reveal every other section uses. Both hooks come off, or the
+      // stacked column would be left holding a half-played sequence.
+      if (caseTravel <= 0) {
+        caseEl.style.removeProperty('--p');
+        caseEl.classList.remove('is-final');
+        return;
+      }
+      var p = -caseEl.getBoundingClientRect().top / caseTravel;
+      p = p < 0 ? 0 : p > 1 ? 1 : p;
+      caseEl.style.setProperty('--p', p.toFixed(4));
+      if (caseEl.classList.contains('is-final')) {
+        if (p < caseEnter - 0.06) caseEl.classList.remove('is-final');
+      } else if (p >= caseEnter) {
+        caseEl.classList.add('is-final');
+      }
+    }
+
+    function update() {
+      body.classList.toggle('is-scrolled', window.scrollY > window.innerHeight * 0.4);
+      body.classList.toggle('is-nav-on-dark', overDark(navEl));
+      body.classList.toggle('is-pill-on-dark', overDark(pillEl));
+      updateCase();
+    }
+
+    var lenis = null;
+    if (!reduced && window.Lenis) {
+      lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+      lenis.on('scroll', update);
+      (function raf(time) { lenis.raf(time); requestAnimationFrame(raf); })();
+    } else {
+      // Native scroll, rAF-throttled.
+      var ticking = false;
+      window.addEventListener('scroll', function () {
+        if (!ticking) { ticking = true; requestAnimationFrame(function () { update(); ticking = false; }); }
+      }, { passive: true });
+    }
+
+    // In-page anchors route through Lenis so they ease rather than jump.
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest('a[href^="#"]');
+      if (!a) return;
+      var id = a.getAttribute('href');
+      if (id.length < 2) return;
+      var target = document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+      if (lenis) lenis.scrollTo(target);
+      else target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
+    });
+
+    // The switches above are geometry, not scroll position, so they have to be
+    // recomputed when the viewport changes shape too. The pinned section's
+    // travel is measured again on load as well: it is stated in viewport
+    // units, but the stage's own min-height is not.
+    function remeasure() { measureCase(); update(); }
+    window.addEventListener('resize', remeasure);
+    window.addEventListener('load', remeasure);
+
+    remeasure();
+
+    // Sections marked data-reveal play their entrance once, when scrolled in.
+    // The attribute's value is the percentage of the viewport the section must
+    // cover first; bare `data-reveal` means 50.
+    var reveals = document.querySelectorAll('[data-reveal]');
+    if (reveals.length && 'IntersectionObserver' in window) {
+      // rootMargin belongs to the observer, not the target, so targets are
+      // grouped by coverage and each group gets its own observer.
+      var groups = {};
+      Array.prototype.forEach.call(reveals, function (el) {
+        var pct = parseFloat(el.getAttribute('data-reveal'));
+        if (!(pct > 0 && pct < 100)) pct = 50;
+        (groups[pct] = groups[pct] || []).push(el);
+      });
+      Object.keys(groups).forEach(function (pct) {
+        var io = new IntersectionObserver(function (entries, observer) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-revealed');
+            observer.unobserve(entry.target);
+          });
+        }, {
+          // Shrinking the root's bottom edge by N% fires when the section's top
+          // crosses that line, i.e. when it covers N% of the viewport. Used
+          // rather than `threshold` so it stays correct for sections taller
+          // than the viewport, where that area ratio is never reachable.
+          rootMargin: '0px 0px -' + pct + '% 0px',
+          threshold: 0,
+        });
+        groups[pct].forEach(function (el) { io.observe(el); });
+      });
+    } else {
+      Array.prototype.forEach.call(reveals, function (el) {
+        el.classList.add('is-revealed');
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>
